@@ -7,18 +7,22 @@ description = 'Koin - simple dependency injection for Kotlin - ' + archivesBaseN
 
 kotlin {
     jvm()
-    linuxX64()
+//    linuxX64()
+    macosX64("nativeCommon")
 
     sourceSets {
         commonMain {
             dependencies {
                 api kotlin("stdlib-common")
+                implementation "co.touchlab:stately:$stately_version"
+                implementation "co.touchlab:stately-collections:$stately_version"
             }
         }
         commonTest {
             dependencies {
                 implementation kotlin("test-common")
                 implementation kotlin("test-annotations-common")
+                implementation "co.touchlab:testhelp:0.2.6"
             }
         }
         jvmMain {
@@ -32,6 +36,11 @@ kotlin {
                 implementation "org.mockito:mockito-inline:$mockito_version"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
             }
+        }
+        nativeCommonMain {
+            /*dependencies {
+                implementation "co.touchlab:stately-collections:$stately_version"
+            }*/
         }
     }
 }

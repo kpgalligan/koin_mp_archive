@@ -5,6 +5,10 @@ import kotlin.reflect.KClass
 expect object KoinMultiPlatform {
     fun <K, V> emptyMutableMap(): MutableMap<K, V>
 
+    fun <T> emptyMutableSet(): MutableSet<T>
+
+    fun <T> emptyMutableList(): MutableList<T>
+
     fun stackTrace(throwable: Throwable): List<String>
 
     fun nanoTime(): Long

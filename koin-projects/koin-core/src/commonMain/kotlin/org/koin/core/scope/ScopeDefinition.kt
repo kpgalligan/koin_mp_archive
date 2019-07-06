@@ -2,6 +2,7 @@ package org.koin.core.scope
 
 import org.koin.core.definition.BeanDefinition
 import org.koin.core.instance.InstanceContext
+import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.Qualifier
 
 /**
@@ -9,7 +10,7 @@ import org.koin.core.qualifier.Qualifier
  */
 data class ScopeDefinition(val qualifier: Qualifier) {
 
-    val definitions: HashSet<BeanDefinition<*>> = hashSetOf()
+    val definitions: MutableSet<BeanDefinition<*>> = KoinMultiPlatform.emptyMutableSet()
 
     internal fun release(instance: Scope) {
         definitions

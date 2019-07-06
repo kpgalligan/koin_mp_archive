@@ -16,6 +16,8 @@
 package org.koin.core.definition
 
 import org.koin.core.instance.*
+import org.koin.core.mp.FrozenDelegate
+import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.parameter.DefinitionParameters
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.scope.Scope
@@ -37,16 +39,16 @@ class BeanDefinition<T>(
     val primaryType: KClass<*>
 ) {
     // Main data
-    var secondaryTypes = arrayListOf<KClass<*>>()
-    var instance: DefinitionInstance<T>? = null
+    val secondaryTypes = KoinMultiPlatform.emptyMutableList<KClass<*>>()
+    var instance: DefinitionInstance<T>? by FrozenDelegate(null)
     lateinit var definition: Definition<T>
-    var options = Options()
-    var properties = Properties()
+    var options : Options by FrozenDelegate(Options())
+    var properties : Properties by FrozenDelegate(Properties())
     lateinit var kind: Kind
 
     // lifecycle
-    var onRelease: OnReleaseCallback<T>? = null
-    var onClose: OnCloseCallback<T>? = null
+    var onRelease: OnReleaseCallback<T>? by FrozenDelegate(null)
+    var onClose: OnCloseCallback<T>? by FrozenDelegate(null)
 
     /**
      *

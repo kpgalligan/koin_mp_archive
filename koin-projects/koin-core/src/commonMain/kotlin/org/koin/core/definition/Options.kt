@@ -20,4 +20,4 @@ package org.koin.core.definition
  *
  * @author Arnaud Giuliani
  */
-data class Options(var isCreatedAtStart: Boolean = false, var override: Boolean = false)
+data class Options(val isCreatedAtStart: Boolean = false, val override: Boolean = false)

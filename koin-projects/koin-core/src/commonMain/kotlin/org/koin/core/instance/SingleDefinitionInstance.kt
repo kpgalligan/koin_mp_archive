@@ -16,6 +16,7 @@
 package org.koin.core.instance
 
 import org.koin.core.definition.BeanDefinition
+import org.koin.core.mp.FrozenDelegate
 
 /**
  * Single instance holder
@@ -23,7 +24,7 @@ import org.koin.core.definition.BeanDefinition
  */
 class SingleDefinitionInstance<T>(beanDefinition: BeanDefinition<T>) : DefinitionInstance<T>(beanDefinition) {
 
-    private var value: T? = null
+    private var value: T? by FrozenDelegate(null)
 
     override fun isCreated(context: InstanceContext): Boolean = (value != null)
 

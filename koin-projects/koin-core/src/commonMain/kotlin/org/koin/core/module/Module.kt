@@ -19,6 +19,7 @@ import org.koin.core.definition.BeanDefinition
 import org.koin.core.definition.Definition
 import org.koin.core.definition.DefinitionFactory
 import org.koin.core.definition.Options
+import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.ScopeSet
 
@@ -32,8 +33,8 @@ class Module(
     internal val isCreatedAtStart: Boolean,
     internal val override: Boolean
 ) {
-    internal val definitions = arrayListOf<BeanDefinition<*>>()
-    internal val scopes = arrayListOf<ScopeSet>()
+    internal val definitions = KoinMultiPlatform.emptyMutableList<BeanDefinition<*>>()
+    internal val scopes = KoinMultiPlatform.emptyMutableList<ScopeSet>()
 
     /**
      * Declare a definition in current Module
@@ -69,8 +70,7 @@ class Module(
     }
 
     private fun BeanDefinition<*>.updateOptions(options: Options) {
-        this.options.isCreatedAtStart = options.isCreatedAtStart || isCreatedAtStart
-        this.options.override = options.override || override
+        this.options = Options(isCreatedAtStart = options.isCreatedAtStart || isCreatedAtStart, override = options.override || override)
     }
 
     /**

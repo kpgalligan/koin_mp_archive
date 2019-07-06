@@ -45,4 +45,8 @@ actual object KoinMultiPlatform {
     actual fun printStackTrace(throwable: Throwable) {
         throwable.printStackTrace()
     }
+
+    actual fun <T> emptyMutableSet(): MutableSet<T> = HashSet()
+
+    actual fun <T> emptyMutableList(): MutableList<T> = arrayListOf()
 }

@@ -1,6 +1,7 @@
 package org.koin.dsl
 
 import org.koin.Simple
+import org.koin.core.mp.FrozenDelegate
 import org.koin.core.qualifier.named
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -92,7 +93,7 @@ class BeanLifecycleTest {
 
     @Test
     fun `declare onRelease for scoped`() {
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(

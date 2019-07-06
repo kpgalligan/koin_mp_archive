@@ -23,9 +23,7 @@ import org.koin.core.error.MissingPropertyException
 import org.koin.core.error.NoBeanDefFoundException
 import org.koin.core.instance.InstanceContext
 import org.koin.core.logger.Level
-import org.koin.core.mp.KoinMPClass
-import org.koin.core.mp.KoinMPLock
-import org.koin.core.mp.kotlin
+import org.koin.core.mp.*
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.registry.BeanRegistry
@@ -41,7 +39,7 @@ data class Scope(
 ) {
     val beanRegistry = BeanRegistry()
     var scopeDefinition: ScopeDefinition? = null
-    private val callbacks = arrayListOf<ScopeCallback>()
+    private val callbacks = KoinMultiPlatform.emptyMutableList<ScopeCallback>()
     private val synchronized = KoinMPLock(this)
 
     /**
@@ -211,7 +209,7 @@ data class Scope(
             DefinitionFactory.createScoped(qualifier, scopeName = scopeDefinition?.qualifier) { instance }
         }
         secondaryTypes?.let { definition.secondaryTypes.addAll(it) }
-        definition.options.override = override
+        definition.options = definition.options.copy(override = override)
         beanRegistry.saveDefinition(definition)
     }
 
@@ -310,17 +308,21 @@ data class Scope(
     /**
      * Close all instances from this scope
      */
-    fun close() = synchronized {
-        if (KoinApplication.logger.isAt(Level.DEBUG)) {
-            KoinApplication.logger.info("closing scope:'$id'")
-        }
-        // call on close from callbacks
-        callbacks.forEach { it.onScopeClose(this) }
-        callbacks.clear()
+    fun close() {
+        synchronized {
+            if (KoinApplication.logger.isAt(Level.DEBUG)) {
+                KoinApplication.logger.info("closing scope:'$id'")
+            }
+            // call on close from callbacks
+            callbacks.forEach { it.onScopeClose(this) }
+            callbacks.clear()
 
-        scopeDefinition?.release(this)
-        beanRegistry.close()
-        _koin.deleteScope(this.id)
+            scopeDefinition?.release(this)
+            beanRegistry.close()
+            _koin.deleteScope(this.id)
+        }
+
+        synchronized.close()
     }
 
     override fun toString(): String {

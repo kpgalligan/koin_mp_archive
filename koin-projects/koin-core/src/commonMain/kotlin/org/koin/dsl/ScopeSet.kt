@@ -20,6 +20,7 @@ import org.koin.core.definition.Definition
 import org.koin.core.definition.DefinitionFactory
 import org.koin.core.definition.Options
 import org.koin.core.error.DefinitionOverrideException
+import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.scope.ScopeDefinition
 
@@ -28,7 +29,7 @@ import org.koin.core.scope.ScopeDefinition
  */
 data class ScopeSet(val qualifier: Qualifier) {
 
-    val definitions: HashSet<BeanDefinition<*>> = hashSetOf()
+    val definitions: MutableSet<BeanDefinition<*>> = KoinMultiPlatform.emptyMutableSet()
 
     @Deprecated("Can't use Single in a scope. Use Scoped instead", level = DeprecationLevel.ERROR)
     @Suppress("UNUSED_PARAMETER")
@@ -81,8 +82,7 @@ data class ScopeSet(val qualifier: Qualifier) {
     }
 
     private fun BeanDefinition<*>.updateOptions(options: Options) {
-        this.options.isCreatedAtStart = options.isCreatedAtStart
-        this.options.override = options.override
+        this.options = options.copy() //TODO: Probably don't need this, but still
     }
 
     override fun toString(): String {

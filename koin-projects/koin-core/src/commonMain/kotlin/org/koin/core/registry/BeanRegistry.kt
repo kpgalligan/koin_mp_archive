@@ -35,11 +35,11 @@ import kotlin.reflect.KClass
  */
 class BeanRegistry {
 
-    private val definitions: HashSet<BeanDefinition<*>> = hashSetOf()
+    private val definitions: MutableSet<BeanDefinition<*>> = KoinMultiPlatform.emptyMutableSet()
     private val definitionsNames: MutableMap<String, BeanDefinition<*>> = KoinMultiPlatform.emptyMutableMap()
     private val definitionsPrimaryTypes: MutableMap<KClass<*>, BeanDefinition<*>> = KoinMultiPlatform.emptyMutableMap()
-    private val definitionsSecondaryTypes: MutableMap<KClass<*>, ArrayList<BeanDefinition<*>>> = KoinMultiPlatform.emptyMutableMap()
-    private val definitionsToCreate: HashSet<BeanDefinition<*>> = hashSetOf()
+    private val definitionsSecondaryTypes: MutableMap<KClass<*>, MutableList<BeanDefinition<*>>> = KoinMultiPlatform.emptyMutableMap()
+    private val definitionsToCreate: MutableSet<BeanDefinition<*>> = KoinMultiPlatform.emptyMutableSet()
 
     /**
      * Load definitions from a Module
@@ -121,7 +121,7 @@ class BeanRegistry {
     }
 
     private fun saveDefinitionForSecondaryType(definition: BeanDefinition<*>, type: KClass<*>) {
-        val secondaryTypeDefinitions: ArrayList<BeanDefinition<*>> = definitionsSecondaryTypes[type]
+        val secondaryTypeDefinitions: MutableList<BeanDefinition<*>> = definitionsSecondaryTypes[type]
             ?: createSecondaryType(type)
 
         if (definition in secondaryTypeDefinitions) {
@@ -134,8 +134,8 @@ class BeanRegistry {
         }
     }
 
-    private fun createSecondaryType(type: KClass<*>): ArrayList<BeanDefinition<*>> {
-        definitionsSecondaryTypes[type] = arrayListOf()
+    private fun createSecondaryType(type: KClass<*>): MutableList<BeanDefinition<*>> {
+        definitionsSecondaryTypes[type] = KoinMultiPlatform.emptyMutableList()
         type.saveCache()
         return definitionsSecondaryTypes[type]!!
     }
@@ -144,7 +144,7 @@ class BeanRegistry {
         definitionsToCreate.add(definition)
     }
 
-    private fun HashSet<BeanDefinition<*>>.addDefinition(definition: BeanDefinition<*>) {
+    private fun MutableSet<BeanDefinition<*>>.addDefinition(definition: BeanDefinition<*>) {
         val added = add(definition)
         if (!added && !definition.options.override) {
             throw DefinitionOverrideException("Already existing definition or try to override an existing one: $definition")
