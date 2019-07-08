@@ -6,6 +6,7 @@ import org.koin.core.definition.Kind
 import org.koin.core.instance.InstanceContext
 import org.koin.core.parameter.emptyParametersHolder
 import org.koin.core.qualifier.named
+import org.koin.multiplatform.doInOtherThread
 import org.koin.test.getDefinition
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -43,57 +44,69 @@ class BeanDefinitionTest {
 
     @Test
     fun `definition kind`() {
-        val app = koinApplication {
-            modules(
-                module {
-                    single { Simple.ComponentA() }
-                    factory { Simple.ComponentB(get()) }
-                }
-            )
+        val app = doInOtherThread{
+            koinApplication {
+                modules(
+                    module {
+                        single { Simple.ComponentA() }
+                        factory { Simple.ComponentB(get()) }
+                    }
+                )
+            }
         }
 
-        val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
-        assertEquals(Kind.Single, defA.kind)
+        doInOtherThread{
+            val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
+            assertEquals(Kind.Single, defA.kind)
 
-        val defB = app.getDefinition(Simple.ComponentB::class) ?: error("no definition found")
-        assertEquals(Kind.Factory, defB.kind)
+            val defB = app.getDefinition(Simple.ComponentB::class) ?: error("no definition found")
+            assertEquals(Kind.Factory, defB.kind)
+        }
     }
 
     @Test
     fun `definition name`() {
         val name = named("A")
-        val app = koinApplication {
-            modules(
-                module {
-                    single(name) { Simple.ComponentA() }
-                    factory { Simple.ComponentB(get()) }
-                }
-            )
+        val app = doInOtherThread{
+            koinApplication {
+                modules(
+                    module {
+                        single(name) { Simple.ComponentA() }
+                        factory { Simple.ComponentB(get()) }
+                    }
+                )
+            }
         }
 
-        val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
-        assertEquals(name, defA.qualifier)
+        doInOtherThread{
+            val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
+            assertEquals(name, defA.qualifier)
 
-        val defB = app.getDefinition(Simple.ComponentB::class) ?: error("no definition found")
-        assertTrue(defB.qualifier == null)
+            val defB = app.getDefinition(Simple.ComponentB::class) ?: error("no definition found")
+            assertTrue(defB.qualifier == null)
+        }
     }
 
     @Test
     fun `definition function`() {
-        val app = koinApplication {
-            modules(
-                module {
-                    single { Simple.ComponentA() }
-                }
-            )
+        val app = doInOtherThread{
+            koinApplication {
+                modules(
+                    module {
+                        single { Simple.ComponentA() }
+                    }
+                )
+            }
         }
 
-        val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
-        val instance = defA.instance!!.get<Simple.ComponentA>(
-            InstanceContext(
-                koin = app.koin,
-                _parameters = { emptyParametersHolder() })
-        )
-        assertEquals(instance, app.koin.get<Simple.ComponentA>())
+        doInOtherThread{
+            val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
+            val instance = defA.instance!!.get<Simple.ComponentA>(
+                InstanceContext(
+                    koin = app.koin,
+                    _parameters = { emptyParametersHolder() })
+            )
+            assertEquals(instance, app.koin.get<Simple.ComponentA>())
+        }
     }
 }

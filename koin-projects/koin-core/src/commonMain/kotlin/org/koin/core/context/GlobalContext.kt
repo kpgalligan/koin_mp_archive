@@ -15,16 +15,18 @@
  */
 package org.koin.core.context
 
+import co.touchlab.stately.concurrency.AtomicReference
+import co.touchlab.stately.concurrency.value
+import co.touchlab.stately.freeze
 import org.koin.core.KoinApplication
 import org.koin.core.error.KoinAppAlreadyStartedException
 import org.koin.core.module.Module
+import org.koin.core.mp.FrozenDelegate
 import org.koin.core.mp.KoinMPLock
 import org.koin.dsl.KoinAppDeclaration
 import kotlin.jvm.JvmStatic
 import kotlin.native.concurrent.SharedImmutable
 
-@SharedImmutable
-private var app: KoinApplication? = null
 
 /**
  * Global context - current Koin Application available globally
@@ -35,13 +37,14 @@ private var app: KoinApplication? = null
 object GlobalContext {
 
     private val synchronized = KoinMPLock(this)
+    private var app = AtomicReference<KoinApplication?>(null)
 
     /**
      * StandAlone Koin App instance
      */
     @JvmStatic
     fun get(): KoinApplication = synchronized {
-        app ?: error("KoinApplication has not been started")
+        app.value ?: error("KoinApplication has not been started")
     }
 
     /**
@@ -49,7 +52,7 @@ object GlobalContext {
      */
     @JvmStatic
     fun getOrNull(): KoinApplication? = synchronized {
-        app
+        app.value
     }
 
     /**
@@ -57,10 +60,10 @@ object GlobalContext {
      */
     @JvmStatic
     fun start(koinApplication: KoinApplication) = synchronized {
-        if (app != null) {
+        if (app.value != null) {
             throw KoinAppAlreadyStartedException("A Koin Application has already been started")
         }
-        app = koinApplication
+        app.value = koinApplication.freeze()
     }
 
     /**
@@ -68,8 +71,8 @@ object GlobalContext {
      */
     @JvmStatic
     fun stop() = synchronized {
-        app?.close()
-        app = null
+        app.value?.close()
+        app.value = null
     }
 }
 
@@ -81,7 +84,7 @@ fun startKoin(appDeclaration: KoinAppDeclaration): KoinApplication {
     GlobalContext.start(koinApplication)
     appDeclaration(koinApplication)
     koinApplication.createEagerInstances()
-    return koinApplication
+    return koinApplication.freeze()
 }
 
 /**

@@ -15,11 +15,13 @@
  */
 package org.koin.core
 
+import co.touchlab.stately.freeze
 import org.koin.core.logger.EmptyLogger
 import org.koin.core.logger.Level
 import org.koin.core.logger.Logger
 import org.koin.core.logger.PrintLogger
 import org.koin.core.module.Module
+import org.koin.core.mp.FrozenDelegate
 import org.koin.core.mp.KoinMPLock
 import org.koin.core.time.measureDurationOnly
 import kotlin.jvm.JvmOverloads
@@ -151,12 +153,7 @@ class KoinApplication private constructor() {
     }
 
     companion object {
-
-        var logger: Logger
-            get() = globalLogger
-            set(newLogger) {
-                globalLogger = newLogger
-            }
+        var logger: Logger by FrozenDelegate(globalLogger)
 
         /**
          * Create a new instance of KoinApplication
@@ -165,7 +162,7 @@ class KoinApplication private constructor() {
         fun create(): KoinApplication {
             val app = KoinApplication()
             app.loadDefaults()
-            return app
+            return app.freeze()
         }
     }
 }

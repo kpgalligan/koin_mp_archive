@@ -16,6 +16,7 @@
 package org.koin.ext
 
 import org.koin.core.mp.KoinMultiPlatform
+import kotlin.native.concurrent.SharedImmutable
 import kotlin.reflect.KClass
 
 /**
@@ -31,4 +32,5 @@ fun KClass<*>.saveCache(): String {
     return name
 }
 
+@SharedImmutable
 private val classNames: MutableMap<KClass<*>, String> = KoinMultiPlatform.emptyMutableMap()

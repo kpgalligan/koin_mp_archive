@@ -2,6 +2,7 @@ package org.koin.dsl
 
 import org.koin.core.logger.Level
 import org.koin.core.mp.KoinMultiPlatform
+import org.koin.multiplatform.doInOtherThread
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -13,12 +14,16 @@ class EnvironmentPropertyDefinitionTest {
         val aPropertyKey: String = sysProperties.keys.first()
         val aPropertyValue = sysProperties[aPropertyKey]
 
-        val koin = koinApplication {
-            printLogger(Level.DEBUG)
-            environmentProperties()
-        }.koin
+        val koin = doInOtherThread {
+            koinApplication {
+                printLogger(Level.DEBUG)
+                environmentProperties()
+            }.koin
+        }
 
-        val foundValue = koin.getProperty<String>(aPropertyKey)
-        assertEquals(aPropertyValue, foundValue)
+        doInOtherThread {
+            val foundValue = koin.getProperty<String>(aPropertyKey)
+            assertEquals(aPropertyValue, foundValue)
+        }
     }
 }

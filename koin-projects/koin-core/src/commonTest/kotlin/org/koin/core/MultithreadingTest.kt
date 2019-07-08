@@ -5,6 +5,7 @@ import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
 import co.touchlab.testhelp.concurrency.ThreadOperations
 import org.koin.Simple
+import org.koin.core.mp.FrozenDelegate
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
@@ -16,7 +17,7 @@ class MultithreadingTest {
     @Test
     fun accessFromOtherThread() {
 
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(

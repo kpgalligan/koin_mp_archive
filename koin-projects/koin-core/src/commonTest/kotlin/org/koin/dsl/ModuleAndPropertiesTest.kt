@@ -3,6 +3,7 @@ package org.koin.dsl
 import org.koin.Simple
 import org.koin.core.error.InstanceCreationException
 import org.koin.core.mp.KoinMultiPlatform
+import org.koin.multiplatform.doInOtherThread
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
@@ -15,15 +16,19 @@ class ModuleAndPropertiesTest {
         val value = "VALUE"
         val values = hashMapOf(key to value)
 
-        val koin = koinApplication {
-            properties(values)
-            modules(module {
-                single { Simple.MyStringFactory(getProperty(key)) }
-            })
-        }.koin
+        val koin = doInOtherThread{
+            koinApplication {
+                properties(values)
+                modules(module {
+                    single { Simple.MyStringFactory(getProperty(key)) }
+                })
+            }.koin
+        }
 
-        val fact = koin.get<Simple.MyStringFactory>()
-        assertEquals(value, fact.s)
+        doInOtherThread{
+            val fact = koin.get<Simple.MyStringFactory>()
+            assertEquals(value, fact.s)
+        }
     }
 
     @Test
@@ -31,11 +36,13 @@ class ModuleAndPropertiesTest {
         try {
             val key = "KEY"
 
-            val koin = koinApplication {
-                modules(module {
-                    single { Simple.MyStringFactory(getProperty(key)) }
-                })
-            }.koin
+            val koin = doInOtherThread{
+                koinApplication {
+                    modules(module {
+                        single { Simple.MyStringFactory(getProperty(key)) }
+                    })
+                }.koin
+            }
 
             koin.get<Simple.MyStringFactory>()
             fail()

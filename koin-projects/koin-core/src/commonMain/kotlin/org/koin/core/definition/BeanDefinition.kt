@@ -39,7 +39,7 @@ class BeanDefinition<T>(
     val primaryType: KClass<*>
 ) {
     // Main data
-    val secondaryTypes = KoinMultiPlatform.emptyMutableList<KClass<*>>()
+    var secondaryTypes: MutableList<KClass<*>> by FrozenDelegate(KoinMultiPlatform.emptyMutableList())
     var instance: DefinitionInstance<T>? by FrozenDelegate(null)
     lateinit var definition: Definition<T>
     var options : Options by FrozenDelegate(Options())

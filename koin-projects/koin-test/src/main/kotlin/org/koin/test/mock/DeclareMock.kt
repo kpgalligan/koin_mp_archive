@@ -98,8 +98,7 @@ inline fun <reified T : Any> BeanDefinition<T>.createMockedDefinition(noinline s
         instance
     }
     copy.properties = this.properties.copy()
-    copy.options = this.options.copy()
-    copy.options.override = true
+    copy.options = copy.options.copy(override = true)
     copy.kind = this.kind
     copy.createInstanceHolder()
     return copy

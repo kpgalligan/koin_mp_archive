@@ -2,6 +2,7 @@ package org.koin.dsl
 
 import org.koin.Simple
 import org.koin.core.logger.Level
+import org.koin.multiplatform.doInOtherThread
 import org.koin.test.assertDefinitionsCount
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -10,11 +11,13 @@ class ModuleCreationTest {
 
     @Test
     fun `create an empty module`() {
-        val app = koinApplication {
-            modules(module {})
+        val app = doInOtherThread{
+            koinApplication {
+                modules(module {})
+            }
         }
 
-        app.assertDefinitionsCount(0)
+        doInOtherThread{ app.assertDefinitionsCount(0) }
     }
 
     @Test
@@ -23,42 +26,52 @@ class ModuleCreationTest {
 
         app.assertDefinitionsCount(0)
 
-        app.modules(module {
-            single { Simple.ComponentA() }
-        })
-        app.assertDefinitionsCount(1)
+        doInOtherThread {
+            app.modules(module {
+                single { Simple.ComponentA() }
+            })
+        }
+
+        doInOtherThread { app.assertDefinitionsCount(1) }
     }
 
     @Test
     fun `create a module with single`() {
-        val app = koinApplication {
+        val app = doInOtherThread{koinApplication {
             modules(
                 module {
                     single { Simple.ComponentA() }
                 })
-        }
+        }}
 
+        doInOtherThread{
         app.assertDefinitionsCount(1)
+        }
     }
 
     @Test
     fun `create a complex single DI module`() {
 
-        val app = koinApplication {
+        val app = doInOtherThread{
+        koinApplication {
             modules(
                 module {
                     single { Simple.ComponentA() }
                     single { Simple.ComponentB(get()) }
                 })
         }
+        }
 
+        doInOtherThread{
         app.assertDefinitionsCount(2)
+        }
     }
 
     @Test
     fun `create a complex factory DI module`() {
 
-        val app = koinApplication {
+        val app = doInOtherThread{
+        koinApplication {
             modules(
                 module {
                     single { Simple.ComponentA() }
@@ -66,14 +79,18 @@ class ModuleCreationTest {
                     factory { Simple.ComponentC(get()) }
                 })
         }
+        }
 
+        doInOtherThread{
         app.assertDefinitionsCount(3)
+        }
     }
 
     @Test
     fun `create several modules`() {
 
-        val app = koinApplication {
+        val app = doInOtherThread{
+        koinApplication {
             modules(
                 listOf(
                     module {
@@ -84,14 +101,18 @@ class ModuleCreationTest {
                     })
             )
         }
+        }
 
+        doInOtherThread{
         app.assertDefinitionsCount(2)
+        }
     }
 
     @Test
     fun `create modules list`() {
 
-        val app = koinApplication {
+        val app = doInOtherThread{
+        koinApplication {
             modules(
                 listOf(
                     module {
@@ -102,13 +123,17 @@ class ModuleCreationTest {
                     })
             )
         }
+        }
 
+        doInOtherThread{
         app.assertDefinitionsCount(2)
+        }
     }
 
     @Test
     fun `create modules list timing`() {
 
+        doInOtherThread{
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -121,7 +146,9 @@ class ModuleCreationTest {
                     })
             )
         }
+        }
 
+        doInOtherThread{
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -133,16 +160,21 @@ class ModuleCreationTest {
                         single { Simple.ComponentB(get()) }
                     })
             )
+        }
         }
     }
 
     @Test
     fun `can add modules for list`() {
-        val modA = module {
+        val modA = doInOtherThread{
+        module {
             single { Simple.ComponentA() }
         }
-        val modB = module {
+        }
+        val modB = doInOtherThread{
+        module {
             single { Simple.ComponentB(get()) }
+        }
         }
 
         assertEquals(modA + modB, listOf(modA, modB))

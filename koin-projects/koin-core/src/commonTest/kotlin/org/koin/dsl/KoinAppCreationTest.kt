@@ -7,6 +7,7 @@ import org.koin.core.context.stopKoin
 import org.koin.core.error.KoinAppAlreadyStartedException
 import org.koin.core.logger.Level
 import org.koin.core.logger.PrintLogger
+import org.koin.multiplatform.doInOtherThread
 import org.koin.test.assertDefinitionsCount
 import org.koin.test.assertHasNoStandaloneInstance
 import kotlin.test.AfterTest
@@ -23,7 +24,7 @@ class KoinAppCreationTest {
 
     @Test
     fun `make a Koin application`() {
-        val app = koinApplication { }
+        val app = doInOtherThread { koinApplication { } }
 
         app.assertDefinitionsCount(0)
 
@@ -32,11 +33,15 @@ class KoinAppCreationTest {
 
     @Test
     fun `start a Koin application`() {
-        val app = startKoin { }
+        val app = doInOtherThread {
+            startKoin { }
+        }
 
         assertEquals(GlobalContext.get(), app)
 
-        stopKoin()
+        doInOtherThread {
+            stopKoin()
+        }
 
         assertHasNoStandaloneInstance()
     }
@@ -53,8 +58,10 @@ class KoinAppCreationTest {
 
     @Test
     fun `allow declare a logger`() {
-        startKoin {
-            logger(PrintLogger(Level.ERROR))
+        doInOtherThread{
+            startKoin {
+                logger(PrintLogger(Level.ERROR))
+            }
         }
 
         assertEquals(KoinApplication.logger.level, Level.ERROR)
@@ -66,8 +73,10 @@ class KoinAppCreationTest {
 
     @Test
     fun `allow declare a print logger level`() {
-        startKoin {
-            printLogger(Level.ERROR)
+        doInOtherThread{
+            startKoin {
+                printLogger(Level.ERROR)
+            }
         }
 
         assertEquals(KoinApplication.logger.level, Level.ERROR)

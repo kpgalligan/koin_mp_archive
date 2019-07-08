@@ -322,7 +322,7 @@ data class Scope(
             _koin.deleteScope(this.id)
         }
 
-        synchronized.close()
+//        synchronized.close()
     }
 
     override fun toString(): String {

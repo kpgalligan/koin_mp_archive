@@ -1,5 +1,6 @@
 package org.koin.core
 
+import co.touchlab.stately.concurrency.AtomicBoolean
 import org.koin.core.error.NoScopeDefinitionFoundException
 import org.koin.core.error.ScopeAlreadyCreatedException
 import org.koin.core.mp.KoinMultiPlatform
@@ -102,13 +103,13 @@ class ScopeAPITest {
     fun `scope callback`() {
         val scopeId = "myScope"
         val scope1 = koin.createScope(scopeId, scopeKey)
-        var closed = false
+        val closed = AtomicBoolean(false)
         scope1.registerCallback(object : ScopeCallback {
             override fun onScopeClose(scope: Scope) {
-                closed = true
+                closed.value = true
             }
         })
         scope1.close()
-        assertTrue(closed)
+        assertTrue(closed.value)
     }
 }

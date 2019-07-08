@@ -10,7 +10,7 @@ class BeanLifecycleTest {
 
     @Test
     fun `declare onClose for single`() {
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(
@@ -26,7 +26,7 @@ class BeanLifecycleTest {
 
     @Test
     fun `declare onClose for factory`() {
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(
@@ -42,7 +42,7 @@ class BeanLifecycleTest {
 
     @Test
     fun `declare onClose for scoped`() {
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(
@@ -61,7 +61,7 @@ class BeanLifecycleTest {
 
     @Test
     fun `declare onRelease for single`() {
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(
@@ -77,7 +77,7 @@ class BeanLifecycleTest {
 
     @Test
     fun `declare onRelease for factory`() {
-        var result = ""
+        var result : String by FrozenDelegate("")
         val app = koinApplication {
             printLogger()
             modules(
