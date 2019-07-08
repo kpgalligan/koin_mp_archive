@@ -15,17 +15,14 @@
  */
 package org.koin.core.context
 
-import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.freeze
 import org.koin.core.KoinApplication
 import org.koin.core.error.KoinAppAlreadyStartedException
 import org.koin.core.module.Module
 import org.koin.core.mp.FrozenDelegate
 import org.koin.core.mp.KoinMPLock
+import org.koin.core.mp.freeze
 import org.koin.dsl.KoinAppDeclaration
 import kotlin.jvm.JvmStatic
-import kotlin.native.concurrent.SharedImmutable
 
 
 /**
@@ -37,14 +34,14 @@ import kotlin.native.concurrent.SharedImmutable
 object GlobalContext {
 
     private val synchronized = KoinMPLock(this)
-    private var app = AtomicReference<KoinApplication?>(null)
+    private var app : KoinApplication? by FrozenDelegate(null)
 
     /**
      * StandAlone Koin App instance
      */
     @JvmStatic
     fun get(): KoinApplication = synchronized {
-        app.value ?: error("KoinApplication has not been started")
+        app ?: error("KoinApplication has not been started")
     }
 
     /**
@@ -52,7 +49,7 @@ object GlobalContext {
      */
     @JvmStatic
     fun getOrNull(): KoinApplication? = synchronized {
-        app.value
+        app
     }
 
     /**
@@ -60,10 +57,10 @@ object GlobalContext {
      */
     @JvmStatic
     fun start(koinApplication: KoinApplication) = synchronized {
-        if (app.value != null) {
+        if (app != null) {
             throw KoinAppAlreadyStartedException("A Koin Application has already been started")
         }
-        app.value = koinApplication.freeze()
+        app = koinApplication.freeze()
     }
 
     /**
@@ -71,8 +68,8 @@ object GlobalContext {
      */
     @JvmStatic
     fun stop() = synchronized {
-        app.value?.close()
-        app.value = null
+        app?.close()
+        app = null
     }
 }
 

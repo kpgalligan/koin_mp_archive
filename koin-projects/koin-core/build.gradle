@@ -14,14 +14,14 @@ kotlin {
         commonMain {
             dependencies {
                 api kotlin("stdlib-common")
-                implementation "co.touchlab:stately:$stately_version"
-                implementation "co.touchlab:stately-collections:$stately_version"
             }
         }
         commonTest {
             dependencies {
                 implementation kotlin("test-common")
                 implementation kotlin("test-annotations-common")
+                implementation "co.touchlab:stately:$stately_version"
+                implementation "co.touchlab:stately-collections:$stately_version"
                 implementation "co.touchlab:testhelp:0.2.6"
             }
         }
@@ -38,9 +38,10 @@ kotlin {
             }
         }
         nativeCommonMain {
-            /*dependencies {
+            dependencies {
+                implementation "co.touchlab:stately:$stately_version"
                 implementation "co.touchlab:stately-collections:$stately_version"
-            }*/
+            }
         }
     }
 }

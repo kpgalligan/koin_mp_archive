@@ -25,3 +25,5 @@ expect object KoinMultiPlatform {
 
     fun printStackTrace(throwable: Throwable)
 }
+
+expect fun <T> T.freeze(): T

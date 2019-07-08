@@ -4,6 +4,7 @@ import co.touchlab.stately.collections.frozenHashMap
 import co.touchlab.stately.collections.frozenHashSet
 import co.touchlab.stately.collections.frozenLinkedList
 import platform.Foundation.NSProcessInfo
+import kotlin.native.concurrent.freeze
 import kotlin.reflect.KClass
 import kotlin.system.getTimeNanos
 
@@ -62,3 +63,5 @@ actual object KoinMultiPlatform {
 
     actual fun <T> emptyMutableList(): MutableList<T> = frozenLinkedList()
 }
+
+actual fun <T> T.freeze(): T = this.freeze()

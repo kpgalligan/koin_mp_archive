@@ -15,7 +15,6 @@
  */
 package org.koin.core
 
-import co.touchlab.stately.freeze
 import org.koin.core.logger.EmptyLogger
 import org.koin.core.logger.Level
 import org.koin.core.logger.Logger
@@ -23,6 +22,7 @@ import org.koin.core.logger.PrintLogger
 import org.koin.core.module.Module
 import org.koin.core.mp.FrozenDelegate
 import org.koin.core.mp.KoinMPLock
+import org.koin.core.mp.freeze
 import org.koin.core.time.measureDurationOnly
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic

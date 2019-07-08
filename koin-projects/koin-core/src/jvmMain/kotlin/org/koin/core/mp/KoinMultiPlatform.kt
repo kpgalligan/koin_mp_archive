@@ -50,3 +50,5 @@ actual object KoinMultiPlatform {
 
     actual fun <T> emptyMutableList(): MutableList<T> = arrayListOf()
 }
+
+actual fun <T> T.freeze(): T = this
