@@ -8,6 +8,7 @@ import org.koin.core.logger.Level
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 
 class TODOAppTest {
@@ -47,7 +48,8 @@ class TODOAppTest {
     ) : TasksDataSource
 
     @Test
-    fun `should create all components`() {
+    @JsName("should_create_all_components")
+fun `should create all components`() {
         val koinApp = startKoin {
             printLogger(Level.DEBUG)
             modules(todoAppModule + repositoryModule)

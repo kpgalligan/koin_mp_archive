@@ -21,6 +21,7 @@ ext {
 
     //Native
     stately_version = "0.9.1"
+    testhelp_version = "0.2.6"
 
     asciidoctor_version = "1.5.3"
     asciidoctor_pdf_version = "1.5.0-alpha.15"

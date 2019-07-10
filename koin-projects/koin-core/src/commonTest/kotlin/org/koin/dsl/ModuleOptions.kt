@@ -2,6 +2,7 @@ package org.koin.dsl
 
 import org.koin.Simple
 import org.koin.test.getDefinition
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -9,7 +10,8 @@ import kotlin.test.assertTrue
 class ModuleOptions {
 
     @Test
-    fun `module default options`() {
+    @JsName("module_default_options")
+fun `module default options`() {
         val module = module {
         }
 
@@ -18,7 +20,8 @@ class ModuleOptions {
     }
 
     @Test
-    fun `module override option`() {
+    @JsName("module_override_option")
+fun `module override option`() {
         val module = module(override = true) {
         }
 
@@ -27,7 +30,8 @@ class ModuleOptions {
     }
 
     @Test
-    fun `module created options`() {
+    @JsName("module_created_options")
+fun `module created options`() {
         val module = module(createdAtStart = true) {
         }
 
@@ -36,7 +40,8 @@ class ModuleOptions {
     }
 
     @Test
-    fun `module definitions options inheritance`() {
+    @JsName("module_definitions_options_inheritance")
+fun `module definitions options inheritance`() {
 
         val module = module(createdAtStart = true, override = true) {
             single { Simple.ComponentA() }
@@ -55,7 +60,8 @@ class ModuleOptions {
     }
 
     @Test
-    fun `module definitions options non inheritance`() {
+    @JsName("module_definitions_options_non_inheritance")
+fun `module definitions options non inheritance`() {
 
         val module = module {
             single(createdAtStart = true) { Simple.ComponentA() }

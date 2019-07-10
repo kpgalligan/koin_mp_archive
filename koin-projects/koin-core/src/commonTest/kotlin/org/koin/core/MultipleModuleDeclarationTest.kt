@@ -4,13 +4,15 @@ import org.koin.Simple
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import org.koin.test.assertDefinitionsCount
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MultipleModuleDeclarationTest {
 
     @Test
-    fun `run with DI with several modules`() {
+    @JsName("run_with_DI_with_several_modules")
+fun `run with DI with several modules`() {
 
         val app = koinApplication {
             modules(
@@ -28,7 +30,8 @@ class MultipleModuleDeclarationTest {
     }
 
     @Test
-    fun `resolve DI with several modules`() {
+    @JsName("resolve_DI_with_several_modules")
+fun `resolve DI with several modules`() {
 
         val app = koinApplication {
             modules(

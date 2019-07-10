@@ -6,6 +6,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -14,7 +15,8 @@ import kotlin.test.assertTrue
 class InstanceResolutionTest {
 
     @Test
-    fun `can resolve a single`() {
+    @JsName("can_resolve_a_single")
+fun `can resolve a single`() {
 
         val app = koinApplication {
             modules(
@@ -31,7 +33,8 @@ class InstanceResolutionTest {
     }
 
     @Test
-    fun `can resolve all ComponentInterface1`() {
+    @JsName("can_resolve_all_ComponentInterface1")
+fun `can resolve all ComponentInterface1`() {
 
         val koin = koinApplication {
             modules(
@@ -50,7 +53,8 @@ class InstanceResolutionTest {
     }
 
     @Test
-    fun `cannot resolve a single`() {
+    @JsName("cannot_resolve_a_single")
+fun `cannot resolve a single`() {
 
         val app = koinApplication {
             printLogger(Level.DEBUG)
@@ -62,11 +66,12 @@ class InstanceResolutionTest {
         val koin = app.koin
         val a: Simple.ComponentA? = koin.getOrNull()
 
-        assert(a == null)
+        assertTrue(a == null)
     }
 
     @Test
-    fun `cannot inject a single`() {
+    @JsName("cannot_inject_a_single")
+fun `cannot inject a single`() {
 
         val app = koinApplication {
             printLogger(Level.DEBUG)
@@ -78,11 +83,12 @@ class InstanceResolutionTest {
         val koin = app.koin
         val a: Lazy<Simple.ComponentA?> = koin.injectOrNull()
 
-        assert(a.value == null)
+        assertTrue(a.value == null)
     }
 
     @Test
-    fun `can lazy resolve a single`() {
+    @JsName("can_lazy_resolve_a_single")
+fun `can lazy resolve a single`() {
 
         val app = koinApplication {
             modules(
@@ -99,7 +105,8 @@ class InstanceResolutionTest {
     }
 
     @Test
-    fun `can resolve a singles by name`() {
+    @JsName("can_resolve_a_singles_by_name")
+fun `can resolve a singles by name`() {
 
         val app = koinApplication {
             modules(
@@ -118,7 +125,8 @@ class InstanceResolutionTest {
     }
 
     @Test
-    fun `can resolve a factory by name`() {
+    @JsName("can_resolve_a_factory_by_name")
+fun `can resolve a factory by name`() {
 
         val app = koinApplication {
             modules(
@@ -137,7 +145,8 @@ class InstanceResolutionTest {
     }
 
     @Test
-    fun `can resolve a factory`() {
+    @JsName("can_resolve_a_factory")
+fun `can resolve a factory`() {
 
         val app = koinApplication {
             modules(
@@ -154,7 +163,8 @@ class InstanceResolutionTest {
     }
 
     @Test
-    fun `should resolve default`() {
+    @JsName("should_resolve_default")
+fun `should resolve default`() {
 
         val app = koinApplication {
             modules(

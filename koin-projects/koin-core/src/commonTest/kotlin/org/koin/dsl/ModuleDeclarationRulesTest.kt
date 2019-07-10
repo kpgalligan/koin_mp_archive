@@ -6,13 +6,15 @@ import org.koin.core.logger.Level
 import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.named
 import org.koin.test.assertDefinitionsCount
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.fail
 
 class ModuleDeclarationRulesTest {
 
     @Test
-    fun `don't allow redeclaration`() {
+    @JsName("don_t_allow_redeclaration")
+fun `don't allow redeclaration`() {
         try {
             koinApplication {
                 modules(module {
@@ -27,7 +29,8 @@ class ModuleDeclarationRulesTest {
     }
 
     @Test
-    fun `allow redeclaration - different names`() {
+    @JsName("allow_redeclaration___different_names")
+fun `allow redeclaration - different names`() {
         val app = koinApplication {
             printLogger(Level.INFO)
             modules(module {
@@ -39,7 +42,8 @@ class ModuleDeclarationRulesTest {
     }
 
     @Test
-    fun `reject redeclaration - same names`() {
+    @JsName("reject_redeclaration___same_names")
+fun `reject redeclaration - same names`() {
         try {
             koinApplication {
                 modules(module {
@@ -54,7 +58,8 @@ class ModuleDeclarationRulesTest {
     }
 
     @Test
-    fun `allow redeclaration - default`() {
+    @JsName("allow_redeclaration___default")
+fun `allow redeclaration - default`() {
         val app = koinApplication {
             modules(module {
                 single { Simple.ComponentA() }
@@ -65,7 +70,8 @@ class ModuleDeclarationRulesTest {
     }
 
     @Test
-    fun `don't allow redeclaration with different implementation`() {
+    @JsName("don_t_allow_redeclaration_with_different_implementation")
+fun `don't allow redeclaration with different implementation`() {
 
         try {
             koinApplication {

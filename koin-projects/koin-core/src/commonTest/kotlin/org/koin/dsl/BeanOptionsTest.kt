@@ -1,8 +1,9 @@
 package org.koin.dsl
 
 import org.koin.Simple
-import org.koin.multiplatform.doInOtherThread
+import org.koin.multiplatform.dispatchThread
 import org.koin.test.getDefinition
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -10,8 +11,9 @@ import kotlin.test.assertTrue
 class BeanOptionsTest {
 
     @Test
-    fun `definition created at start`() {
-        val app = doInOtherThread{
+    @JsName("definition_created_at_start")
+fun `definition created at start`() {
+        val app = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -22,7 +24,7 @@ class BeanOptionsTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
             assertTrue(defA.options.isCreatedAtStart)
 
@@ -32,8 +34,9 @@ class BeanOptionsTest {
     }
 
     @Test
-    fun `definition override`() {
-        val app = doInOtherThread{
+    @JsName("definition_override")
+fun `definition override`() {
+        val app = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -44,7 +47,7 @@ class BeanOptionsTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
             assertFalse(defA.options.override)
 

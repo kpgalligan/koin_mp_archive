@@ -6,8 +6,9 @@ import org.koin.core.definition.Kind
 import org.koin.core.instance.InstanceContext
 import org.koin.core.parameter.emptyParametersHolder
 import org.koin.core.qualifier.named
-import org.koin.multiplatform.doInOtherThread
+import org.koin.multiplatform.dispatchThread
 import org.koin.test.getDefinition
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -17,7 +18,8 @@ class BeanDefinitionTest {
     val koin = koinApplication { }.koin
 
     @Test
-    fun `equals definitions`() {
+    @JsName("equals_definitions")
+fun `equals definitions`() {
 
         val def1 = DefinitionFactory.createSingle(definition = { Simple.ComponentA() })
         val def2 = DefinitionFactory.createSingle(definition = { Simple.ComponentA() })
@@ -25,7 +27,8 @@ class BeanDefinitionTest {
     }
 
     @Test
-    fun `scope definition`() {
+    @JsName("scope_definition")
+fun `scope definition`() {
         val scopeID = named("scope")
 
         val def1 = DefinitionFactory.createSingle(scopeName = scopeID, definition = { Simple.ComponentA() })
@@ -36,15 +39,17 @@ class BeanDefinitionTest {
     }
 
     @Test
-    fun `equals definitions - but diff kind`() {
+    @JsName("equals_definitions___but_diff_kind")
+fun `equals definitions - but diff kind`() {
         val def1 = DefinitionFactory.createSingle(definition = { Simple.ComponentA() })
         val def2 = DefinitionFactory.createFactory(definition = { Simple.ComponentA() })
         assertEquals(def1, def2)
     }
 
     @Test
-    fun `definition kind`() {
-        val app = doInOtherThread{
+    @JsName("definition_kind")
+fun `definition kind`() {
+        val app = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -55,7 +60,7 @@ class BeanDefinitionTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
             assertEquals(Kind.Single, defA.kind)
 
@@ -65,9 +70,10 @@ class BeanDefinitionTest {
     }
 
     @Test
-    fun `definition name`() {
+    @JsName("definition_name")
+fun `definition name`() {
         val name = named("A")
-        val app = doInOtherThread{
+        val app = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -78,7 +84,7 @@ class BeanDefinitionTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
             assertEquals(name, defA.qualifier)
 
@@ -88,8 +94,9 @@ class BeanDefinitionTest {
     }
 
     @Test
-    fun `definition function`() {
-        val app = doInOtherThread{
+    @JsName("definition_function")
+fun `definition function`() {
+        val app = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -99,7 +106,7 @@ class BeanDefinitionTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             val defA = app.getDefinition(Simple.ComponentA::class) ?: error("no definition found")
             val instance = defA.instance!!.get<Simple.ComponentA>(
                 InstanceContext(

@@ -1,11 +1,9 @@
 package org.koin.core
 
-import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.freeze
 import co.touchlab.testhelp.concurrency.ThreadOperations
 import org.koin.Simple
 import org.koin.core.mp.FrozenDelegate
+import org.koin.core.mp.freeze
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
@@ -29,7 +27,7 @@ class MultithreadingTest {
         }
 
         val ops = ThreadOperations {}
-        val ref = AtomicReference<Throwable?>(null)
+        var ref : Throwable? by FrozenDelegate(null)
         ops.exe {
             val koin = app.koin
 
@@ -38,13 +36,13 @@ class MultithreadingTest {
                 scopeInstance.get<Simple.Component1>()
                 scopeInstance.close()
             } catch (e: Exception) {
-                ref.value = e.freeze()
+                ref = e.freeze()
             }
         }
 
         ops.run(1)
 
-        val throwable = ref.value
+        val throwable = ref
         if(throwable != null)
         {
             throw throwable

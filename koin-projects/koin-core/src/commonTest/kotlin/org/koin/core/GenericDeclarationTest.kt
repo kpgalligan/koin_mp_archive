@@ -5,6 +5,7 @@ import org.koin.core.logger.Level
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -18,7 +19,8 @@ class GenericDeclarationTest {
     }
 
     @Test
-    fun `declare and retrieve generic definitions`() {
+    @JsName("declare_and_retrieve_generic_definitions")
+fun `declare and retrieve generic definitions`() {
         val koin = createKoin()
 
         val aString = koin.get<List<String>>(named("strings"))
@@ -29,7 +31,8 @@ class GenericDeclarationTest {
     }
 
     @Test
-    fun `declare and not retrieve generic definitions`() {
+    @JsName("declare_and_not_retrieve_generic_definitions")
+fun `declare and not retrieve generic definitions`() {
         val koin = createKoin()
 
         try {

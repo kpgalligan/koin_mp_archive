@@ -2,57 +2,62 @@ package org.koin.dsl
 
 import org.koin.Simple
 import org.koin.core.logger.Level
-import org.koin.multiplatform.doInOtherThread
+import org.koin.multiplatform.dispatchThread
 import org.koin.test.assertDefinitionsCount
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ModuleCreationTest {
 
     @Test
-    fun `create an empty module`() {
-        val app = doInOtherThread{
+    @JsName("create_an_empty_module")
+fun `create an empty module`() {
+        val app = dispatchThread{
             koinApplication {
                 modules(module {})
             }
         }
 
-        doInOtherThread{ app.assertDefinitionsCount(0) }
+        dispatchThread{ app.assertDefinitionsCount(0) }
     }
 
     @Test
-    fun `load a module once started`() {
+    @JsName("load_a_module_once_started")
+fun `load a module once started`() {
         val app = koinApplication {}
 
         app.assertDefinitionsCount(0)
 
-        doInOtherThread {
+        dispatchThread {
             app.modules(module {
                 single { Simple.ComponentA() }
             })
         }
 
-        doInOtherThread { app.assertDefinitionsCount(1) }
+        dispatchThread { app.assertDefinitionsCount(1) }
     }
 
     @Test
-    fun `create a module with single`() {
-        val app = doInOtherThread{koinApplication {
+    @JsName("create_a_module_with_single")
+fun `create a module with single`() {
+        val app = dispatchThread{koinApplication {
             modules(
                 module {
                     single { Simple.ComponentA() }
                 })
         }}
 
-        doInOtherThread{
+        dispatchThread{
         app.assertDefinitionsCount(1)
         }
     }
 
     @Test
-    fun `create a complex single DI module`() {
+    @JsName("create_a_complex_single_DI_module")
+fun `create a complex single DI module`() {
 
-        val app = doInOtherThread{
+        val app = dispatchThread{
         koinApplication {
             modules(
                 module {
@@ -62,15 +67,16 @@ class ModuleCreationTest {
         }
         }
 
-        doInOtherThread{
+        dispatchThread{
         app.assertDefinitionsCount(2)
         }
     }
 
     @Test
-    fun `create a complex factory DI module`() {
+    @JsName("create_a_complex_factory_DI_module")
+fun `create a complex factory DI module`() {
 
-        val app = doInOtherThread{
+        val app = dispatchThread{
         koinApplication {
             modules(
                 module {
@@ -81,15 +87,16 @@ class ModuleCreationTest {
         }
         }
 
-        doInOtherThread{
+        dispatchThread{
         app.assertDefinitionsCount(3)
         }
     }
 
     @Test
-    fun `create several modules`() {
+    @JsName("create_several_modules")
+fun `create several modules`() {
 
-        val app = doInOtherThread{
+        val app = dispatchThread{
         koinApplication {
             modules(
                 listOf(
@@ -103,15 +110,16 @@ class ModuleCreationTest {
         }
         }
 
-        doInOtherThread{
+        dispatchThread{
         app.assertDefinitionsCount(2)
         }
     }
 
     @Test
-    fun `create modules list`() {
+    @JsName("create_modules_list")
+fun `create modules list`() {
 
-        val app = doInOtherThread{
+        val app = dispatchThread{
         koinApplication {
             modules(
                 listOf(
@@ -125,15 +133,16 @@ class ModuleCreationTest {
         }
         }
 
-        doInOtherThread{
+        dispatchThread{
         app.assertDefinitionsCount(2)
         }
     }
 
     @Test
-    fun `create modules list timing`() {
+    @JsName("create_modules_list_timing")
+fun `create modules list timing`() {
 
-        doInOtherThread{
+        dispatchThread{
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -148,7 +157,7 @@ class ModuleCreationTest {
         }
         }
 
-        doInOtherThread{
+        dispatchThread{
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -165,13 +174,14 @@ class ModuleCreationTest {
     }
 
     @Test
-    fun `can add modules for list`() {
-        val modA = doInOtherThread{
+    @JsName("can_add_modules_for_list")
+fun `can add modules for list`() {
+        val modA = dispatchThread{
         module {
             single { Simple.ComponentA() }
         }
         }
-        val modB = doInOtherThread{
+        val modB = dispatchThread{
         module {
             single { Simple.ComponentB(get()) }
         }
@@ -181,7 +191,8 @@ class ModuleCreationTest {
     }
 
     @Test
-    fun `can add modules to list`() {
+    @JsName("can_add_modules_to_list")
+fun `can add modules to list`() {
         val modA = module {
             single { Simple.ComponentA() }
         }

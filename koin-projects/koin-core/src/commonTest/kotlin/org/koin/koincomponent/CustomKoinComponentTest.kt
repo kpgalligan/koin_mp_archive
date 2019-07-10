@@ -7,6 +7,7 @@ import org.koin.core.inject
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import org.koin.test.assertHasNoStandaloneInstance
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -41,7 +42,8 @@ class MyCustomApp : CustomKoinComponent() {
 class CustomKoinComponentTest {
 
     @Test
-    fun `can inject KoinComponent from custom instance`() {
+    @JsName("can_inject_KoinComponent_from_custom_instance")
+fun `can inject KoinComponent from custom instance`() {
         val app = MyCustomApp()
         val a = customKoin.get<Simple.ComponentA>()
 

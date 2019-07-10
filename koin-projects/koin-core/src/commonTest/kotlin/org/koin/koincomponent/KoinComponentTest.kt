@@ -7,6 +7,7 @@ import org.koin.core.context.stopKoin
 import org.koin.core.get
 import org.koin.core.inject
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -18,7 +19,8 @@ class MyComponent : KoinComponent {
 class KoinComponentTest {
 
     @Test
-    fun `can lazy inject from KoinComponent`() {
+    @JsName("can_lazy_inject_from_KoinComponent")
+fun `can lazy inject from KoinComponent`() {
         val app = startKoin {
             printLogger()
             modules(

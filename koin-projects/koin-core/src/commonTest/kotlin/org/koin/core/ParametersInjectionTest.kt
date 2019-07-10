@@ -5,13 +5,15 @@ import org.koin.core.logger.Level
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ParametersInjectionTest {
 
     @Test
-    fun `can create a single with parameters`() {
+    @JsName("can_create_a_single_with_parameters")
+fun `can create a single with parameters`() {
 
         val app = koinApplication {
             modules(
@@ -27,7 +29,8 @@ class ParametersInjectionTest {
     }
 
     @Test
-    fun `can get a single created with parameters - no need of give it again`() {
+    @JsName("can_get_a_single_created_with_parameters___no_need_of_give_it_again")
+fun `can get a single created with parameters - no need of give it again`() {
 
         val app = koinApplication {
             modules(
@@ -47,7 +50,8 @@ class ParametersInjectionTest {
     }
 
     @Test
-    fun `can create factories with params`() {
+    @JsName("can_create_factories_with_params")
+fun `can create factories with params`() {
 
         val app = koinApplication {
             modules(
@@ -65,7 +69,8 @@ class ParametersInjectionTest {
     }
 
     @Test
-    fun `chained factory injection`() {
+    @JsName("chained_factory_injection")
+fun `chained factory injection`() {
         val koin = koinApplication {
             printLogger(Level.DEBUG)
             modules(

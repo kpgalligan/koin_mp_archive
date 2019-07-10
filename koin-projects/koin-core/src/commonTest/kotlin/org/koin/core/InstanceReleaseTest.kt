@@ -6,13 +6,15 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class InstanceReleaseTest {
 
     @Test
-    fun `can resolve a single`() {
+    @JsName("can_resolve_a_single")
+fun `can resolve a single`() {
         val module = module {
             single { (i: Int) -> Simple.MySingle(i) }
         }

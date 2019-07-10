@@ -7,6 +7,7 @@ import org.koin.core.logger.Level
 import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.StringQualifier
 import org.koin.core.qualifier.named
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -17,7 +18,8 @@ class ScopeSetDeclarationTest {
     val scopeKey = named("KEY")
 
     @Test
-    fun `can declare a scoped definition`() {
+    @JsName("can_declare_a_scoped_definition")
+fun `can declare a scoped definition`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -36,7 +38,8 @@ class ScopeSetDeclarationTest {
     }
 
     @Test
-    fun `can declare 2 scoped definitions from same type without naming`() {
+    @JsName("can_declare_2_scoped_definitions_from_same_type_without_naming")
+fun `can declare 2 scoped definitions from same type without naming`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -63,7 +66,8 @@ class ScopeSetDeclarationTest {
     }
 
 //    @Test
-//    fun `can't declare other than scoped in scope`() {
+//    @JsName("can_t_declare_other_than_scoped_in_scope")
+//fun `can't declare other than scoped in scope`() {
 //        val app = koinApplication {
 //            modules(
 //                    module {
@@ -80,7 +84,8 @@ class ScopeSetDeclarationTest {
 //    }
 
     @Test
-    fun `can declare a scope definition`() {
+    @JsName("can_declare_a_scope_definition")
+fun `can declare a scope definition`() {
         val app = koinApplication {
             modules(
                 module {
@@ -94,7 +99,8 @@ class ScopeSetDeclarationTest {
     }
 
     @Test
-    fun `can't declare 2 scoped same definitions`() {
+    @JsName("can_t_declare_2_scoped_same_definitions")
+fun `can't declare 2 scoped same definitions`() {
         try {
             koinApplication {
                 printLogger(Level.DEBUG)

@@ -5,6 +5,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.inject
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -19,7 +20,8 @@ class MyApp : KoinComponent {
 class AppTest {
 
     @Test
-    fun `can run KoinComponent app`() {
+    @JsName("can_run_KoinComponent_app")
+fun `can run KoinComponent app`() {
         val app = startKoin {
             printLogger()
             modules(

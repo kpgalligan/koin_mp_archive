@@ -2,13 +2,15 @@ package org.koin.dsl
 
 import org.koin.Simple
 import org.koin.core.qualifier.named
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class NamingTest {
 
     @Test
-    fun `can resolve naming from root`() {
+    @JsName("can_resolve_naming_from_root")
+fun `can resolve naming from root`() {
         val scopeName = named("MY_SCOPE")
         val koin = koinApplication {
             modules(module {

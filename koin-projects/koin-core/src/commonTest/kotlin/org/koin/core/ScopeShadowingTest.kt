@@ -5,13 +5,15 @@ import org.koin.core.logger.Level
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ScopeShadowingTest {
 
     @Test
-    fun `can't get scoped dependency without scope from single`() {
+    @JsName("can_t_get_scoped_dependency_without_scope_from_single")
+fun `can't get scoped dependency without scope from single`() {
         val koin = koinApplication {
             printLogger(Level.DEBUG)
             modules(

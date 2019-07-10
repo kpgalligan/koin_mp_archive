@@ -7,13 +7,15 @@ import org.koin.core.error.NoBeanDefFoundException
 import org.koin.core.mp.KoinMultiPlatform
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.fail
 
 class ErrorCheckTest {
 
     @Test
-    fun `unknown definition`() {
+    @JsName("unknown_definition")
+fun `unknown definition`() {
         val app = koinApplication {
         }
 
@@ -26,7 +28,8 @@ class ErrorCheckTest {
     }
 
     @Test
-    fun `unknown linked dependency`() {
+    @JsName("unknown_linked_dependency")
+fun `unknown linked dependency`() {
         val app = koinApplication {
             modules(module {
                 single { Simple.ComponentB(get()) }
@@ -41,7 +44,8 @@ class ErrorCheckTest {
     }
 
     @Test
-    fun `error while creating instance`() {
+    @JsName("error_while_creating_instance")
+fun `error while creating instance`() {
         val app = koinApplication {
             modules(module {
                 single { Errors.Boom() }

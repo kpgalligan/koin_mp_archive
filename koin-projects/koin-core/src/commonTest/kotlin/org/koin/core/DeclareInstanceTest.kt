@@ -7,6 +7,7 @@ import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -15,7 +16,8 @@ import kotlin.test.fail
 class DeclareInstanceTest {
 
     @Test
-    fun `can declare a single on the fly`() {
+    @JsName("can_declare_a_single_on_the_fly")
+fun `can declare a single on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -30,7 +32,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can't declare a single on the fly`() {
+    @JsName("can_t_declare_a_single_on_the_fly")
+fun `can't declare a single on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -50,7 +53,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare and override a single on the fly`() {
+    @JsName("can_declare_and_override_a_single_on_the_fly")
+fun `can declare and override a single on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -66,7 +70,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare and override a single on the fly when override is set to false`() {
+    @JsName("can_declare_and_override_a_single_on_the_fly_when_override_is_set_to_false")
+fun `can declare and override a single on the fly when override is set to false`() {
 
         val koin = koinApplication {
             printLogger()
@@ -86,7 +91,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare a single with qualifier on the fly`() {
+    @JsName("can_declare_a_single_with_qualifier_on_the_fly")
+fun `can declare a single with qualifier on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -104,7 +110,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare and override a single with qualifier on the fly`() {
+    @JsName("can_declare_and_override_a_single_with_qualifier_on_the_fly")
+fun `can declare and override a single with qualifier on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -123,7 +130,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare a single with secondary type on the fly`() {
+    @JsName("can_declare_a_single_with_secondary_type_on_the_fly")
+fun `can declare a single with secondary type on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -139,7 +147,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare and override a single with secondary type on the fly`() {
+    @JsName("can_declare_and_override_a_single_with_secondary_type_on_the_fly")
+fun `can declare and override a single with secondary type on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -157,7 +166,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can declare a scoped on the fly`() {
+    @JsName("can_declare_a_scoped_on_the_fly")
+fun `can declare a scoped on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -178,7 +188,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can't declare a scoped-single on the fly`() {
+    @JsName("can_t_declare_a_scoped_single_on_the_fly")
+fun `can't declare a scoped-single on the fly`() {
 
         val koin = koinApplication {
             printLogger()
@@ -202,7 +213,8 @@ class DeclareInstanceTest {
     }
 
     @Test
-    fun `can't declare a other scoped on the fly`() {
+    @JsName("can_t_declare_a_other_scoped_on_the_fly")
+fun `can't declare a other scoped on the fly`() {
 
         val koin = koinApplication {
             printLogger()

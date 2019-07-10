@@ -22,7 +22,8 @@
 //    }
 //
 //    @Test
-//    fun `Scoped component - different scopes`() {
+//    @JsName("Scoped_component___different_scopes")
+//fun `Scoped component - different scopes`() {
 //        startKoin {
 //            printLogger(Level.DEBUG)
 //            modules(
@@ -54,7 +55,8 @@
 //    }
 //
 //    @Test
-//    fun `Scoped component - same scopes`() {
+//    @JsName("Scoped_component___same_scopes")
+//fun `Scoped component - same scopes`() {
 //        startKoin {
 //            printLogger(Level.DEBUG)
 //            modules(

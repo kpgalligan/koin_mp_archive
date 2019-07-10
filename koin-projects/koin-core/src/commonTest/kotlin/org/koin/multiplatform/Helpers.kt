@@ -1,3 +1,3 @@
 package org.koin.multiplatform
 
-expect fun <T> doInOtherThread(block: () -> T): T
+expect fun <T> dispatchThread(block: () -> T): T

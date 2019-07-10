@@ -5,8 +5,9 @@ import org.koin.core.error.NoBeanDefFoundException
 import org.koin.core.logger.Level
 import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.named
-import org.koin.multiplatform.doInOtherThread
+import org.koin.multiplatform.dispatchThread
 import org.koin.test.assertDefinitionsCount
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -16,8 +17,9 @@ import kotlin.test.fail
 class AdditionalTypeBindingTest {
 
     @Test
-    fun `can resolve an additional type - bind`() {
-        val app = doInOtherThread {
+    @JsName("can_resolve_an_additional_type___bind")
+fun `can resolve an additional type - bind`() {
+        val app = dispatchThread {
             koinApplication {
                 printLogger()
                 modules(
@@ -27,7 +29,7 @@ class AdditionalTypeBindingTest {
             }
         }
 
-        doInOtherThread {
+        dispatchThread {
             app.assertDefinitionsCount(1)
 
             val koin = app.koin
@@ -40,8 +42,9 @@ class AdditionalTypeBindingTest {
     }
 
     @Test
-    fun `can resolve an additional type`() {
-        val app = doInOtherThread {
+    @JsName("can_resolve_an_additional_type")
+fun `can resolve an additional type`() {
+        val app = dispatchThread {
             koinApplication {
                 printLogger()
                 modules(
@@ -51,7 +54,7 @@ class AdditionalTypeBindingTest {
             }
         }
 
-        doInOtherThread {
+        dispatchThread {
             app.assertDefinitionsCount(1)
 
             val koin = app.koin
@@ -64,8 +67,9 @@ class AdditionalTypeBindingTest {
     }
 
     @Test
-    fun `can't resolve an additional type`() {
-        val app = doInOtherThread{
+    @JsName("can_t_resolve_an_additional_type")
+fun `can't resolve an additional type`() {
+        val app = dispatchThread{
             koinApplication {
                 printLogger(Level.DEBUG)
                 modules(
@@ -76,7 +80,7 @@ class AdditionalTypeBindingTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             app.assertDefinitionsCount(2)
 
             val koin = app.koin
@@ -95,8 +99,9 @@ class AdditionalTypeBindingTest {
     }
 
     @Test
-    fun `can resolve an additional type in DSL`() {
-        val app = doInOtherThread{
+    @JsName("can_resolve_an_additional_type_in_DSL")
+fun `can resolve an additional type in DSL`() {
+        val app = dispatchThread{
             koinApplication {
                 printLogger(Level.DEBUG)
                 modules(
@@ -108,7 +113,7 @@ class AdditionalTypeBindingTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             app.assertDefinitionsCount(3)
 
             val koin = app.koin
@@ -117,8 +122,9 @@ class AdditionalTypeBindingTest {
     }
 
     @Test
-    fun `additional type conflict`() {
-        val koin = doInOtherThread{
+    @JsName("additional_type_conflict")
+fun `additional type conflict`() {
+        val koin = dispatchThread{
             koinApplication {
                 printLogger()
                 modules(
@@ -129,16 +135,17 @@ class AdditionalTypeBindingTest {
             }.koin
         }
 
-        doInOtherThread{
-            assert(koin.getAll<Simple.ComponentInterface1>().size == 2)
+        dispatchThread{
+            assertTrue(koin.getAll<Simple.ComponentInterface1>().size == 2)
 
             assertTrue(koin.get<Simple.ComponentInterface1>() is Simple.Component1)
         }
     }
 
     @Test
-    fun `should not conflict name & default type`() {
-        val app = doInOtherThread{
+    @JsName("should_not_conflict_name___default_type")
+fun `should not conflict name & default type`() {
+        val app = dispatchThread{
             koinApplication {
                 printLogger()
                 modules(
@@ -148,15 +155,16 @@ class AdditionalTypeBindingTest {
                     })
             }
         }
-        doInOtherThread{
+        dispatchThread{
             val koin = app.koin
             koin.get<Simple.ComponentInterface1>(named("default"))
         }
     }
 
     @Test
-    fun `can resolve an additional types`() {
-        val app = doInOtherThread{
+    @JsName("can_resolve_an_additional_types")
+fun `can resolve an additional types`() {
+        val app = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -168,7 +176,7 @@ class AdditionalTypeBindingTest {
             }
         }
 
-        doInOtherThread{
+        dispatchThread{
             app.assertDefinitionsCount(1)
 
             val koin = app.koin
@@ -182,8 +190,9 @@ class AdditionalTypeBindingTest {
     }
 
     @Test
-    fun `conflicting with additional types`() {
-        val koin = doInOtherThread{
+    @JsName("conflicting_with_additional_types")
+fun `conflicting with additional types`() {
+        val koin = dispatchThread{
             koinApplication {
                 modules(
                     module {
@@ -196,6 +205,6 @@ class AdditionalTypeBindingTest {
             }.koin
         }
 
-        doInOtherThread{ assert(koin.getAll<Simple.ComponentInterface1>().size == 2) }
+        dispatchThread{ assertTrue(koin.getAll<Simple.ComponentInterface1>().size == 2) }
     }
 }

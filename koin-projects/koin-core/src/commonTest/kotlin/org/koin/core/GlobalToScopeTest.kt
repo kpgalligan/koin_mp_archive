@@ -7,6 +7,7 @@ import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
@@ -14,7 +15,8 @@ import kotlin.test.fail
 class GlobalToScopeTest {
 
     @Test
-    fun `can't get scoped dependency without scope`() {
+    @JsName("can_t_get_scoped_dependency_without_scope")
+fun `can't get scoped dependency without scope`() {
         val koin = koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -35,7 +37,8 @@ class GlobalToScopeTest {
     }
 
     @Test
-    fun `can't get scoped dependency without scope from single`() {
+    @JsName("can_t_get_scoped_dependency_without_scope_from_single")
+fun `can't get scoped dependency without scope from single`() {
         val koin = koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -58,7 +61,8 @@ class GlobalToScopeTest {
     }
 
     @Test
-    fun `get scoped dependency without scope from single`() {
+    @JsName("get_scoped_dependency_without_scope_from_single")
+fun `get scoped dependency without scope from single`() {
 
         val scopeId = "MY_SCOPE_ID"
 

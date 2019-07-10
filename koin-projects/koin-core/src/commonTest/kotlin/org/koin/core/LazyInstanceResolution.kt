@@ -3,12 +3,14 @@ package org.koin.core
 import org.koin.Simple
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LazyInstanceResolution {
     @Test
-    fun `can lazy resolve a single`() {
+    @JsName("can_lazy_resolve_a_single")
+fun `can lazy resolve a single`() {
 
         val app = koinApplication {
             modules(

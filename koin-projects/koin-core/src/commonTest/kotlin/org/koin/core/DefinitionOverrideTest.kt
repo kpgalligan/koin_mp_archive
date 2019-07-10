@@ -5,13 +5,15 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import org.koin.test.assertDefinitionsCount
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class DefinitionOverrideTest {
 
     @Test
-    fun `allow overrides by type`() {
+    @JsName("allow_overrides_by_type")
+fun `allow overrides by type`() {
 
         val app = koinApplication {
             modules(
@@ -27,7 +29,8 @@ class DefinitionOverrideTest {
     }
 
     @Test
-    fun `allow overrides by name`() {
+    @JsName("allow_overrides_by_name")
+fun `allow overrides by name`() {
 
         val app = koinApplication {
             modules(

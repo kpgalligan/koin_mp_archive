@@ -12,12 +12,14 @@ import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import org.koin.test.getDefinition
+import kotlin.js.JsName
 import kotlin.test.*
 
 class DynamicModulesTest {
 
     @Test
-    fun `should unload single definition`() {
+    @JsName("should_unload_single_definition")
+fun `should unload single definition`() {
         val module = module {
             single { Simple.ComponentA() }
         }
@@ -44,7 +46,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should unload additional bound definition`() {
+    @JsName("should_unload_additional_bound_definition")
+fun `should unload additional bound definition`() {
         val module = module {
             single { Simple.Component1() } bind Simple.ComponentInterface1::class
         }
@@ -79,7 +82,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should unload one module definition`() {
+    @JsName("should_unload_one_module_definition")
+fun `should unload one module definition`() {
         val module1 = module {
             single { Simple.ComponentA() }
         }
@@ -110,7 +114,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should unload one module definition - factory`() {
+    @JsName("should_unload_one_module_definition___factory")
+fun `should unload one module definition - factory`() {
         val module1 = module {
             single { Simple.ComponentA() }
         }
@@ -141,7 +146,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should unload module override definition`() {
+    @JsName("should_unload_module_override_definition")
+fun `should unload module override definition`() {
         val module1 = module {
             single { Simple.MySingle(42) }
         }
@@ -169,7 +175,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should reload module definition`() {
+    @JsName("should_reload_module_definition")
+fun `should reload module definition`() {
         val module = module {
             single { (id: Int) -> Simple.MySingle(id) }
         }
@@ -189,7 +196,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should reload module definition - global context`() {
+    @JsName("should_reload_module_definition___global_context")
+fun `should reload module definition - global context`() {
         val module = module {
             single { (id: Int) -> Simple.MySingle(id) }
         }
@@ -209,7 +217,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should unload scoped definition`() {
+    @JsName("should_unload_scoped_definition")
+fun `should unload scoped definition`() {
         val scopeKey = named("-SCOPE-")
         val module = module {
             scope(scopeKey) {
@@ -241,7 +250,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should reload scoped definition`() {
+    @JsName("should_reload_scoped_definition")
+fun `should reload scoped definition`() {
         val scopeKey = named("-SCOPE-")
         val module = module {
             scope(scopeKey) {
@@ -269,7 +279,8 @@ class DynamicModulesTest {
     }
 
     @Test
-    fun `should reload scoped definition - global`() {
+    @JsName("should_reload_scoped_definition___global")
+fun `should reload scoped definition - global`() {
         val scopeKey = named("-SCOPE-")
         val module = module {
             scope(scopeKey) {

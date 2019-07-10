@@ -3,7 +3,6 @@ package org.koin.core.mp
 import co.touchlab.stately.collections.frozenHashMap
 import co.touchlab.stately.collections.frozenHashSet
 import co.touchlab.stately.collections.frozenLinkedList
-import platform.Foundation.NSProcessInfo
 import kotlin.native.concurrent.freeze
 import kotlin.reflect.KClass
 import kotlin.system.getTimeNanos
@@ -21,22 +20,6 @@ actual object KoinMultiPlatform {
 
     actual fun getSystemProperties(): Map<String, String> {
         return emptyMap()
-    }
-
-    actual fun getSystemEnvironmentProperties(): Map<String, String> {
-        val source = NSProcessInfo.processInfo.environment
-        val target = mutableMapOf<String, String>()
-
-        source.entries.forEach { entry ->
-            val key = entry.key
-            val value = entry.value
-            //They're never null, but just in case
-            if(key != null && value != null) {
-                target.put(key.toString(), value.toString())
-            }
-        }
-
-        return target
     }
 
     actual fun loadResourceString(fileName: String): String? {

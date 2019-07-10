@@ -6,6 +6,7 @@ import org.koin.core.mp.KoinMultiPlatform
 import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
@@ -15,7 +16,8 @@ class OpenCloseScopeInstanceTest {
     val scopeName = named("MY_SCOPE")
 
     @Test
-    fun `get definition from a scope`() {
+    @JsName("get_definition_from_a_scope")
+fun `get definition from a scope`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -31,7 +33,8 @@ class OpenCloseScopeInstanceTest {
     }
 
     @Test
-    fun `can't get definition from another scope`() {
+    @JsName("can_t_get_definition_from_another_scope")
+fun `can't get definition from another scope`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -52,7 +55,8 @@ class OpenCloseScopeInstanceTest {
     }
 
     @Test
-    fun `get definition from scope and out of scope`() {
+    @JsName("get_definition_from_scope_and_out_of_scope")
+fun `get definition from scope and out of scope`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -72,7 +76,8 @@ class OpenCloseScopeInstanceTest {
     }
 
     @Test
-    fun `can't get definition from wrong scope`() {
+    @JsName("can_t_get_definition_from_wrong_scope")
+fun `can't get definition from wrong scope`() {
         val scope1Name = named("SCOPE_1")
         val koin = koinApplication {
             modules(

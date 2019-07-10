@@ -7,6 +7,7 @@ import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -19,7 +20,8 @@ class ClosedScopeAPI {
     val scopeName = "MY_SCOPE"
 
     @Test
-    fun `get definition from current scopes type`() {
+    @JsName("get_definition_from_current_scopes_type")
+fun `get definition from current scopes type`() {
         val koin = koinApplication {
             printLogger()
             modules(
@@ -37,7 +39,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from current scope type`() {
+    @JsName("get_definition_from_current_scope_type")
+fun `get definition from current scope type`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -55,7 +58,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from current factory scope type`() {
+    @JsName("get_definition_from_current_factory_scope_type")
+fun `get definition from current factory scope type`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -73,7 +77,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from factory scope type`() {
+    @JsName("get_definition_from_factory_scope_type")
+fun `get definition from factory scope type`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -91,7 +96,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from current scope type - dispatched modules`() {
+    @JsName("get_definition_from_current_scope_type___dispatched_modules")
+fun `get definition from current scope type - dispatched modules`() {
         val koin = koinApplication {
             modules(
                 listOf(
@@ -118,7 +124,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from current scope`() {
+    @JsName("get_definition_from_current_scope")
+fun `get definition from current scope`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -136,7 +143,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from outside single`() {
+    @JsName("get_definition_from_outside_single")
+fun `get definition from outside single`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -154,7 +162,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `get definition from outside factory`() {
+    @JsName("get_definition_from_outside_factory")
+fun `get definition from outside factory`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -172,7 +181,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `bad mix definition from a scope`() {
+    @JsName("bad_mix_definition_from_a_scope")
+fun `bad mix definition from a scope`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -196,7 +206,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `mix definition from a scope`() {
+    @JsName("mix_definition_from_a_scope")
+fun `mix definition from a scope`() {
         val koin = koinApplication {
             modules(
                 module {
@@ -219,7 +230,8 @@ class ClosedScopeAPI {
     }
 
     @Test
-    fun `definition params for scoped definitions`() {
+    @JsName("definition_params_for_scoped_definitions")
+fun `definition params for scoped definitions`() {
         val koin = koinApplication {
             modules(
                 module {

@@ -9,6 +9,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import org.koin.test.getDefinition
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -17,7 +18,8 @@ import kotlin.test.fail
 class KoinApplicationIsolationTest {
 
     @Test
-    fun `can isolate several koin apps`() {
+    @JsName("can_isolate_several_koin_apps")
+fun `can isolate several koin apps`() {
         val app1 = koinApplication {
             modules(
                 module {
@@ -39,7 +41,8 @@ class KoinApplicationIsolationTest {
     }
 
     @Test
-    fun `koin app instance run instance `() {
+    @JsName("koin_app_instance_run_instance_")
+fun `koin app instance run instance `() {
         val app = koinApplication {
             modules(
                 module {
@@ -53,7 +56,8 @@ class KoinApplicationIsolationTest {
     }
 
     @Test
-    fun `can isolate koin apps & standaline`() {
+    @JsName("can_isolate_koin_apps___standaline")
+fun `can isolate koin apps & standaline`() {
         startKoin {
             modules(
                 module {
@@ -76,7 +80,8 @@ class KoinApplicationIsolationTest {
     }
 
     @Test
-    fun `stopping koin releases resources`() {
+    @JsName("stopping_koin_releases_resources")
+fun `stopping koin releases resources`() {
         val module = module {
             single { Simple.ComponentA() }
             scope(named<Simple>()) {
@@ -106,7 +111,8 @@ class KoinApplicationIsolationTest {
     }
 
     @Test
-    fun `create multiple context without named qualifier`() {
+    @JsName("create_multiple_context_without_named_qualifier")
+fun `create multiple context without named qualifier`() {
         val koinA = koinApplication {
             modules(listOf(module {
                 single { ModelA() }

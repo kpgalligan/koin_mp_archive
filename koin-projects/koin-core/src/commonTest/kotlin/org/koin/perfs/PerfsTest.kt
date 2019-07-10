@@ -3,12 +3,14 @@ package org.koin.perfs
 import org.koin.core.time.measureDuration
 import org.koin.dsl.koinApplication
 import org.koin.test.assertDefinitionsCount
+import kotlin.js.JsName
 import kotlin.test.Test
 
 class PerfsTest {
 
     @Test
-    fun `empty module perfs`() {
+    @JsName("empty_module_perfs")
+fun `empty module perfs`() {
         val (app, duration) = measureDuration {
             koinApplication {
             }
@@ -27,7 +29,8 @@ class PerfsTest {
         measured executed in 0.036298 ms
      */
     @Test
-    fun `perfModule400 module perfs`() {
+    @JsName("perfModule400_module_perfs")
+fun `perfModule400 module perfs`() {
         runPerfs()
         runPerfs()
     }

@@ -1,39 +1,41 @@
 package org.koin.dsl
 
-import co.touchlab.stately.collections.frozenLinkedList
 import org.koin.core.qualifier.named
-import org.koin.multiplatform.doInOtherThread
+import org.koin.multiplatform.dispatchThread
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ModuleSpecialRulesTest {
 
     @Test
-    fun `generic type declaration`() {
-        val koin = doInOtherThread {
+    @JsName("generic_type_declaration")
+fun `generic type declaration`() {
+        val koin = dispatchThread {
             koinApplication {
                 modules(module {
                     single { arrayListOf<String>() }
                 })
             }.koin
         }
-        doInOtherThread {
+        dispatchThread {
             koin.get<ArrayList<String>>()
         }
     }
 
     @Test
-    fun `generic types declaration`() {
-        val koin = doInOtherThread {
+    @JsName("generic_types_declaration")
+fun `generic types declaration`() {
+        val koin = dispatchThread {
             koinApplication {
                 modules(module {
-                    single(named("strings")) { frozenLinkedList<String>() }
-                    single(named("ints")) { frozenLinkedList<Int>() }
+                    single(named("strings")) { testyList<String>() }
+                    single(named("ints")) { testyList<Int>() }
                 })
             }.koin
         }
 
-        doInOtherThread {
+        dispatchThread {
             val strings = koin.get<MutableList<String>>(named("strings"))
             strings.add("test")
 
@@ -43,3 +45,5 @@ class ModuleSpecialRulesTest {
         }
     }
 }
+
+expect fun <T> testyList(): MutableList<T>

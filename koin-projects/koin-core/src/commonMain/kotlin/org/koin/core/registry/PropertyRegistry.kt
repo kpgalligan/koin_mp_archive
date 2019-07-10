@@ -20,6 +20,7 @@ import org.koin.core.error.NoPropertyFileFoundException
 import org.koin.core.logger.Level
 import org.koin.core.mp.KoinMPProperties
 import org.koin.core.mp.KoinMultiPlatform
+import org.koin.core.mp.getSystemEnvironmentProperties
 import org.koin.core.mp.toMap
 import org.koin.ext.isFloat
 import org.koin.ext.isInt
@@ -109,7 +110,7 @@ class PropertyRegistry {
             logger.debug("load properties from environment")
         }
         saveProperties(KoinMultiPlatform.getSystemProperties())
-        saveProperties(KoinMultiPlatform.getSystemEnvironmentProperties())
+        saveProperties(getSystemEnvironmentProperties())
     }
 
     fun close() {

@@ -1,5 +1,6 @@
 package org.koin.dsl
 
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -7,7 +8,8 @@ import kotlin.test.assertNull
 class PropertyDefinitionTest {
 
     @Test
-    fun `load and get properties`() {
+    @JsName("load_and_get_properties")
+fun `load and get properties`() {
         val key = "KEY"
         val value = "VALUE"
         val values = hashMapOf(key to value)
@@ -21,7 +23,8 @@ class PropertyDefinitionTest {
     }
 
     @Test
-    fun `default value properties`() {
+    @JsName("default_value_properties")
+fun `default value properties`() {
         val koin = koinApplication {}.koin
 
         val defaultValue = "defaultValue"
@@ -31,7 +34,8 @@ class PropertyDefinitionTest {
     }
 
     @Test
-    fun `set a property`() {
+    @JsName("set_a_property")
+fun `set a property`() {
         val key = "KEY"
         val value = "VALUE"
 
@@ -43,7 +47,8 @@ class PropertyDefinitionTest {
     }
 
     @Test
-    fun `missing property`() {
+    @JsName("missing_property")
+fun `missing property`() {
         val key = "KEY"
         val koin = koinApplication { }.koin
 
@@ -52,7 +57,8 @@ class PropertyDefinitionTest {
     }
 
     @Test
-    fun `overwrite a property`() {
+    @JsName("overwrite_a_property")
+fun `overwrite a property`() {
         val key = "KEY"
         val value = "VALUE"
         val value2 = "VALUE2"

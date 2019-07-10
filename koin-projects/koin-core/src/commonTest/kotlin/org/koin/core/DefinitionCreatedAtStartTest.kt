@@ -8,6 +8,7 @@ import org.koin.core.logger.Level
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import org.koin.test.getDefinition
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -15,7 +16,8 @@ import kotlin.test.assertTrue
 class DefinitionCreatedAtStartTest {
 
     @Test
-    fun `is declared as created at start`() {
+    @JsName("is_declared_as_created_at_start")
+fun `is declared as created at start`() {
         val app = koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -31,7 +33,8 @@ class DefinitionCreatedAtStartTest {
     }
 
     @Test
-    fun `is created at start`() {
+    @JsName("is_created_at_start")
+fun `is created at start`() {
         val app = startKoin {
             printLogger(Level.DEBUG)
             modules(
@@ -48,7 +51,8 @@ class DefinitionCreatedAtStartTest {
     }
 
     @Test
-    fun `factory is not created at start`() {
+    @JsName("factory_is_not_created_at_start")
+fun `factory is not created at start`() {
         val app = koinApplication {
             modules(
                 module {
