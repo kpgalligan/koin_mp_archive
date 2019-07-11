@@ -7,7 +7,7 @@ description = 'Koin - simple dependency injection for Kotlin - ' + archivesBaseN
 
 kotlin {
     jvm()
-//    linuxX64()
+// Uncomment and refresh gradle for Intellij to "see" native libraries
 //    macosX64("nativeCommon")
     macosX64()
     iosArm32()
@@ -20,16 +20,17 @@ kotlin {
 //    androidNativeArm64()
     mingwX64()
 
-    /*js {
-        browser()
-        *//*configure([compilations.main, compilations.test]) {
+    js {
+        nodejs()
+        /*browser()
+        configure([compilations.main, compilations.test]) {
             tasks.getByName(compileKotlinTaskName).kotlinOptions {
                 metaInfo = true
                 sourceMap = true
                 moduleKind = 'umd'
             }
-        }*//*
-    }*/
+        }*/
+    }
 
 
     sourceSets {
@@ -63,7 +64,7 @@ kotlin {
             }
         }
 
-        /*jsMain {
+        jsMain {
             dependsOn commonMain
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
@@ -74,7 +75,7 @@ kotlin {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test-js'
             }
-        }*/
+        }
 
         nativeCommonMain {
             dependencies {

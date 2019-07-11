@@ -14,7 +14,10 @@ class EnvironmentPropertyDefinitionTest {
     @JsName("load_and_get_properties_from_environment")
 fun `load and get properties from environment`() {
         val sysProperties = getSystemEnvironmentProperties()
-        val aPropertyKey: String = sysProperties.keys.first()
+        val keys = sysProperties.keys
+        if(keys.isEmpty())
+            return
+        val aPropertyKey: String = keys.first()
         val aPropertyValue = sysProperties[aPropertyKey]
 
         val koin = dispatchThread {
