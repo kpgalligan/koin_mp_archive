@@ -16,7 +16,7 @@ class CheckModulesTest {
 
     @Test
     @JsName("check_a_scoped_module")
-fun `check a scoped module`() {
+    fun `check a scoped module`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -32,7 +32,7 @@ fun `check a scoped module`() {
 
     @Test
     @JsName("check_a_scoped_module_and_ext_deps___failed")
-fun `check a scoped module and ext deps - failed `() {
+    fun `check a scoped module and ext deps - failed `() {
         try {
             koinApplication {
                 printLogger(Level.DEBUG)
@@ -53,7 +53,7 @@ fun `check a scoped module and ext deps - failed `() {
 
     @Test
     @JsName("check_a_scoped_module_and_ext_scope___failed")
-fun `check a scoped module and ext scope - failed`() {
+    fun `check a scoped module and ext scope - failed`() {
         try {
             koinApplication {
                 printLogger(Level.DEBUG)
@@ -76,7 +76,7 @@ fun `check a scoped module and ext scope - failed`() {
 
     @Test
     @JsName("check_a_scoped_module_and_ext_scope___create_scope")
-fun `check a scoped module and ext scope - create scope`() {
+    fun `check a scoped module and ext scope - create scope`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -99,7 +99,7 @@ fun `check a scoped module and ext scope - create scope`() {
 
     @Test
     @JsName("check_a_scoped_module_and_ext_scope___inject_scope")
-fun `check a scoped module and ext scope - inject scope`() {
+    fun `check a scoped module and ext scope - inject scope`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -119,7 +119,7 @@ fun `check a scoped module and ext scope - inject scope`() {
 
     @Test
     @JsName("check_a_simple_module")
-fun `check a simple module`() {
+    fun `check a simple module`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -132,7 +132,7 @@ fun `check a simple module`() {
 
     @Test
     @JsName("check_a_module_with_link")
-fun `check a module with link`() {
+    fun `check a module with link`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -146,7 +146,7 @@ fun `check a module with link`() {
 
     @Test
     @JsName("check_a_broken_module")
-fun `check a broken module`() {
+    fun `check a broken module`() {
         try {
             koinApplication {
                 printLogger(Level.DEBUG)
@@ -164,7 +164,7 @@ fun `check a broken module`() {
 
     @Test
     @JsName("check_a_module_with_params")
-fun `check a module with params`() {
+    fun `check a module with params`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(
@@ -181,7 +181,7 @@ fun `check a module with params`() {
 
     @Test
     @JsName("check_with_qualifier")
-fun `check with qualifier`() {
+    fun `check with qualifier`() {
         koinApplication {
             printLogger(Level.DEBUG)
             modules(module {
@@ -192,7 +192,7 @@ fun `check with qualifier`() {
 
     @Test
     @JsName("check_a_module_with_property")
-fun `check a module with property`() {
+    fun `check a module with property`() {
         koinApplication {
             printLogger(Level.DEBUG)
             properties(hashMapOf("aValue" to "value"))
