@@ -1,13 +1,145 @@
-apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
 
 archivesBaseName = 'koin-test'
 description = 'Koin - simple dependency injection for Kotlin - ' + archivesBaseName
 
-dependencies {
-    // Koin
-    compile project(":koin-core")
-    compile "junit:junit:$junit_version"
-    compile "org.mockito:mockito-inline:$mockito_version"
+kotlin {
+    jvm()
+// Uncomment and refresh gradle for Intellij to "see" native libraries
+//    macosX64("nativeCommon")
+    macosX64()
+    iosArm32()
+    iosArm64()
+    iosX64()
+    linuxX64()
+    linuxArm32Hfp()
+    linuxMips32()
+//    androidNativeArm32()
+//    androidNativeArm64()
+    mingwX64()
+
+    js {
+        nodejs()
+        /*browser()
+        configure([compilations.main, compilations.test]) {
+            tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                metaInfo = true
+                sourceMap = true
+                moduleKind = 'umd'
+            }
+        }*/
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                api kotlin("stdlib-common")
+                api kotlin("test-annotations-common")
+                api project(":koin-core")
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation kotlin("test-common")
+                implementation kotlin("test-annotations-common")
+                implementation "co.touchlab:testhelp:$testhelp_version"
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                api kotlin("stdlib-jdk8")
+                api kotlin("test-junit")
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation kotlin("test-junit")
+                implementation "org.mockito:mockito-inline:$mockito_version"
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+                implementation "co.touchlab:stately:$stately_version"
+                implementation "co.touchlab:stately-collections:$stately_version"
+            }
+        }
+
+        jsMain {
+            dependsOn commonMain
+            dependencies {
+                api kotlin("stdlib-js")
+                api kotlin("test-js")
+            }
+        }
+        jsTest {
+            dependsOn commonTest
+            /*dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+            }*/
+        }
+
+        nativeCommonMain {
+            dependencies {
+                implementation "co.touchlab:stately:$stately_version"
+                implementation "co.touchlab:stately-collections:$stately_version"
+            }
+        }
+
+        nativeCommonTest {
+            dependencies {
+                implementation "co.touchlab:stately:$stately_version"
+                implementation "co.touchlab:stately-collections:$stately_version"
+            }
+        }
+
+        darwinMain {
+            dependsOn nativeCommonMain
+        }
+
+        darwinTest {
+            dependsOn nativeCommonTest
+        }
+
+        linuxMain {
+            dependsOn nativeCommonMain
+        }
+
+        linuxTest {
+            dependsOn nativeCommonTest
+        }
+
+        mingwMain {
+            dependsOn nativeCommonMain
+        }
+
+        mingwTest {
+            dependsOn nativeCommonTest
+        }
+
+        configure([
+                targets.iosX64,
+                targets.iosArm32,
+                targets.iosArm64,
+                targets.macosX64
+        ]) {
+            compilations.main.source(sourceSets.darwinMain)
+            compilations.test.source(sourceSets.darwinTest)
+        }
+
+        configure([
+                targets.linuxX64,
+                targets.linuxArm32Hfp,
+                targets.linuxMips32
+        ]) {
+            compilations.main.source(sourceSets.linuxMain)
+            compilations.test.source(sourceSets.linuxTest)
+        }
+
+        configure([targets.mingwX64]) {
+            compilations.main.source(sourceSets.mingwMain)
+            compilations.test.source(sourceSets.mingwTest)
+        }
+    }
 }
 
 apply from: '../gradle/publish-mavenCentral.gradle'

@@ -20,7 +20,7 @@ android {
 dependencies {
     // Koin
     api project(":koin-core")
-    testImplementation project(":koin-test")
+    testImplementation project(":koin-test-mockito")
 }
 
 apply from: '../gradle/publish-mavenCentral.gradle'
