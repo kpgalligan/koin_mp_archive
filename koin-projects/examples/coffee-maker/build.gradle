@@ -4,18 +4,19 @@ archivesBaseName = 'example-coffee-maker'
 
 kotlin {
     jvm()
-    macosX64()/*{
+    macosX64() {
         binaries {
             executable {
-                entryPoint = "sample.objc.main"
+                entryPoint = "org.koin.example.main"
             }
         }
-    }*/
+    }
     sourceSets {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
                 implementation project(":koin-core")
+                implementation "co.touchlab:stately:$stately_version"
             }
         }
 
@@ -24,7 +25,6 @@ kotlin {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
                 implementation project(":koin-test")
-                implementation "co.touchlab:stately:$stately_version"
                 implementation "co.touchlab:testhelp:$testhelp_version"
             }
         }

@@ -12,7 +12,7 @@ class CoffeeApp : KoinComponent {
     val maker: CoffeeMaker by inject()
 }
 
-fun main() {
+fun main(args: Array<String>) {
     run()
     run()
 }
