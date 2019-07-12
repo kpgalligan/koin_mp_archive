@@ -8,6 +8,9 @@ include 'examples:coffee-maker'
 // Core extended
 include 'koin-java', 'koin-core-ext'
 
+// Mock
+include 'koin-test-mockito'
+
 // Android
 include 'koin-android', 'koin-android-scope' ,'koin-android-viewmodel'
 include 'koin-androidx-scope', 'koin-androidx-viewmodel'

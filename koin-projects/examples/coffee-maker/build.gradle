@@ -1,8 +1,32 @@
-apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
 
 archivesBaseName = 'example-coffee-maker'
 
-dependencies {
-    compile project(":koin-core-ext")
-    testImplementation project(":koin-test")
+kotlin {
+    jvm()
+    macosX64()/*{
+        binaries {
+            executable {
+                entryPoint = "sample.objc.main"
+            }
+        }
+    }*/
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+                implementation project(":koin-core")
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+                implementation project(":koin-test")
+                implementation "co.touchlab:stately:$stately_version"
+                implementation "co.touchlab:testhelp:$testhelp_version"
+            }
+        }
+    }
 }
