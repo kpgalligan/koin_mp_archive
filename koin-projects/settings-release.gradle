@@ -1,5 +1,11 @@
+enableFeaturePreview("GRADLE_METADATA")
+
 // Core
 include 'koin-core', 'koin-test', 'koin-core-ext', 'koin-java'
+
+// Mock
+include 'koin-test-mockito'
+
 // Android
 include 'koin-android','koin-android-scope','koin-android-viewmodel'
 include 'koin-androidx-scope','koin-androidx-viewmodel'

@@ -1,1 +1,1 @@
-./gradlew uploadArchives publish --no-parallel
+./gradlew build uploadArchives publish --no-parallel -c settings-release.gradle
