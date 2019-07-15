@@ -21,6 +21,7 @@ import org.koin.core.definition.Definition
 import org.koin.core.definition.DefinitionFactory
 import org.koin.core.definition.Options
 import org.koin.core.error.DefinitionOverrideException
+import org.koin.core.module.Module
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.ScopeSet
 
@@ -34,9 +35,9 @@ import org.koin.dsl.ScopeSet
  * @param override - allow definition override
  */
 inline fun <reified T : ViewModel> ScopeSet.viewModel(
-    qualifier: Qualifier? = null,
-    override: Boolean = false,
-    noinline definition: Definition<T>
+        qualifier: Qualifier? = null,
+        override: Boolean = false,
+        noinline definition: Definition<T>
 ): BeanDefinition<T> {
     val beanDefinition = DefinitionFactory.createFactory(qualifier, this.qualifier, definition)
     declareDefinition(beanDefinition, Options(false, override))

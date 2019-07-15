@@ -20,6 +20,8 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.content.ComponentCallbacks
 import org.koin.android.ext.android.getKoin
+import org.koin.core.KoinComponent
+import org.koin.core.context.GlobalContext
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.TypeQualifier
 import org.koin.core.scope.Scope
@@ -63,3 +65,4 @@ fun LifecycleOwner.bindScope(scope: Scope, event: Lifecycle.Event = Lifecycle.Ev
  */
 val LifecycleOwner.currentScope: Scope
     get() = getOrCreateCurrentScope()
+
