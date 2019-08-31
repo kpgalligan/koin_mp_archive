@@ -32,4 +32,4 @@ dependencies {
     }
 }
 
-apply from: '../gradle/publish-android.gradle'
+apply from: '../gradle/publish-mavenCentral.gradle'

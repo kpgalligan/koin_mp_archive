@@ -142,4 +142,4 @@ kotlin {
     }
 }
 
-apply from: '../gradle/publish.gradle'
+apply from: '../gradle/publish-mpp-mavenCentral.gradle'
