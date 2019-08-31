@@ -63,6 +63,7 @@ class BeanDefinition<T>(
             Kind.Single -> SingleDefinitionInstance(this)
             Kind.Factory -> FactoryDefinitionInstance(this)
             Kind.Scoped -> ScopeDefinitionInstance(this)
+            Kind.ThreadLocal -> ThreadLocalDefinitionInstance(this)
         }
     }
 
@@ -106,7 +107,7 @@ class BeanDefinition<T>(
 }
 
 enum class Kind {
-    Single, Factory, Scoped
+    Single, Factory, Scoped, ThreadLocal
 }
 
 typealias Definition<T> = Scope.(DefinitionParameters) -> T

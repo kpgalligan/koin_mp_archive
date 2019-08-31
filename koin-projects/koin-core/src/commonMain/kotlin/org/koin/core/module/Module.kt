@@ -69,6 +69,24 @@ class Module(
         return beanDefinition
     }
 
+    /**
+     * Declare a thread local definition
+     * @param qualifier
+     * @param createdAtStart
+     * @param override
+     * @param definition - definition function
+     */
+    inline fun <reified T> threadLocal(
+        qualifier: Qualifier? = null,
+        createdAtStart: Boolean = false,
+        override: Boolean = false,
+        noinline definition: Definition<T>
+    ): BeanDefinition<T> {
+        val beanDefinition = DefinitionFactory.createThreadLocal (qualifier, definition = definition)
+        declareDefinition(beanDefinition, Options(createdAtStart, override))
+        return beanDefinition
+    }
+
     private fun BeanDefinition<*>.updateOptions(options: Options) {
         this.options = Options(isCreatedAtStart = options.isCreatedAtStart || isCreatedAtStart, override = options.override || override)
     }

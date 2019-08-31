@@ -14,7 +14,7 @@ publishing {
         Production(MavenPublication) {
             from components.android
             artifact sourcesJar
-            artifact dokkaJar
+//            artifact dokkaJar
         }
     }
 }

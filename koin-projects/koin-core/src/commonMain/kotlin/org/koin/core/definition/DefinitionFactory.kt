@@ -28,6 +28,14 @@ object DefinitionFactory {
         return createDefinition(qualifier, definition, Kind.Factory, scopeName)
     }
 
+    inline fun <reified T> createThreadLocal(
+        qualifier: Qualifier? = null,
+        scopeName: Qualifier? = null,
+        noinline definition: Definition<T>
+    ): BeanDefinition<T> {
+        return createDefinition(qualifier, definition, Kind.ThreadLocal, scopeName)
+    }
+
     inline fun <reified T> createDefinition(
         qualifier: Qualifier?,
         noinline definition: Definition<T>,

@@ -10,3 +10,16 @@ internal actual class FrozenDelegate<T> actual constructor(t: T) {
         tVal = value
     }
 }
+
+internal actual class ThreadLocalDelegate<T> actual constructor() {
+    var tVal:T? = null
+    actual operator fun getValue(thisRef: Any?, property: KProperty<*>): T = tVal!!
+
+    actual operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        tVal = value
+    }
+
+    internal actual fun cleanUp() {
+        tVal = null
+    }
+}
